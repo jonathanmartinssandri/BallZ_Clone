@@ -1,5 +1,7 @@
 # Ballz Clone
 
+![alt-text][ballz-ketchapp]
+
 Ballz é um jogo estilo breakout, onde deve-se utilizar uma bolinha para destruir inúmeras caixas. Porém, apesar de ser fortemente baseado nesse estilo de jogo, há algumas diferenças cruciais que o diferem do famoso predecessor:
 
 ### As caixas avançam a cada rodada. 
@@ -49,3 +51,6 @@ Tela principal que conterá toda a jogabilidade e mecânica do aplicativo.
 - Pontuação atual
 - Número de moedas atuais
 
+
+
+[ballz-ketchapp]: https://i.ytimg.com/vi/QrQ4Wj8KWkg/maxresdefault.jpg
