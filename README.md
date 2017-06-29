@@ -23,21 +23,29 @@ Um dos únicos itens que podem ser adquiridos durante o jogo, são bolas adicion
 Nem todas as telas serão implementadas nesse projeto. Abaixo, têm-se a lista de telas agrupadas por responsabilidade. Ao lado de seus nomes, o 'X' significa que não terá implementação e o '#' indica que a funcionalidade será implementada
 
 ### # Splash Screen
+
 Tela de apresentação e carregamento de Assets do Jogo. A intenção é utilizar apenas primitivas na construção desse jogo, portanto, talvez seja apenas um tela de transição suave.
 
-	- Essa é a tela de abertura do jogo. Permite acesso a todas as outras telas dispovível para o usuário:
-	Tela principal:
+### # Main Screen
 
-	- Botão Jogar
-	X Botão de Avaliação do Jogo
-	
-	X Music (Turn ON/OFF)
-	- High Scores
-	X Market
-	
-Tela de Jogo:
-	Essa tela conterá além dos elementos gráficos que compõe o jogo, também terá alguns elementos de UI:
-		- Personal Best Score
-		- Current Score
-		X Number of total coins
-	O restante da tela será controlada pela engine de jogo.
+Essa é a tela de abertura do jogo. Permite acesso a todas as outras telas dispovível para o usuário:
+
+- Botão de Info
+- Número de moedas
+- Título
+- Botão 'Play'
+- Botão 'Rate'
+- Música (Ligada/Desligada)
+- Maiores pontuadores
+- Loja
+- Retirar propaganda
+
+### # Tela de Jogo
+
+Tela principal que conterá toda a jogabilidade e mecânica do aplicativo.
+
+- Botão de pause
+- Melhor pontuação pessoal
+- Pontuação atual
+- Número de moedas atuais
+
