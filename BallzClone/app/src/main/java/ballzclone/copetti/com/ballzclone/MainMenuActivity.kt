@@ -1,13 +1,15 @@
 package ballzclone.copetti.com.ballzclone
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 
-class MainMenuActivity : AppCompatActivity() {
+class MainMenuActivity : FullScreenActivity() {
 
     private var bestOverall : TextView? = null
     private var currentScore: TextView? = null

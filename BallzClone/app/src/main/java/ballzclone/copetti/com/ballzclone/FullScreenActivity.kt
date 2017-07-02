@@ -1,12 +1,14 @@
 package ballzclone.copetti.com.ballzclone
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 
-class HighestScoreActivity : FullScreenActivity() {
+open class FullScreenActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_highest_score)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 }
