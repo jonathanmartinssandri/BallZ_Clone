@@ -63,7 +63,15 @@
     <View
         android:id="@+id/mainGameView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="20dp"
         android:background="@color/colorPrimary">
     </View>
+
+    <LinearLayout
+        android:id="@+id/gameViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#444444"
+        android:orientation="vertical">
+    </LinearLayout>
 </LinearLayout>
