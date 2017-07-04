@@ -23,7 +23,7 @@ class RenderView(context: Context) : View(context) {
     private var deltaTime: Float = 0.0f
     private var lastTimeStart: Float = 0.0f
 
-    private val FRAME_RATE = 60.0f
+    private val FRAME_RATE = 20.0f
     private var gameManager = GameManager()
     private var loopManager = GameLoopManager(gameManager, System::nanoTime, FRAME_RATE)
 
