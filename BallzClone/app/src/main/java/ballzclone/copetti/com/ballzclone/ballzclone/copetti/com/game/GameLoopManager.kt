@@ -18,15 +18,20 @@ class GameLoopManager (gameLoop: GameLoop, currentNanoTimeSupplier: () -> Long, 
     public fun update(canvas: Canvas) {
 
         val timeStart = nanoTimeSupplier() / 1000000000.0f
-        deltaTime += timeStart - lastTimeStart;
-        lastTimeStart = timeStart
 
-        if (deltaTime < fixedTimeStep) {
+        deltaTime += timeStart - lastTimeStart;
+        updateSimulation()
+
+        lastTimeStart = timeStart
+        gameLoop.draw(canvas)
+    }
+
+    public fun updateSimulation() {
+
+        if (deltaTime < fixedTimeStep)
             return
-        }
 
         gameLoop.update(deltaTime)
-        gameLoop.draw(canvas)
         deltaTime = 0.0f
     }
 }
