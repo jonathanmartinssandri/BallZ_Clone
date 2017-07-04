@@ -3,8 +3,9 @@ package ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game
 import android.graphics.Canvas
 
 /**
- * Created by LuisCopetti on 02/07/2017.
+ * Created by Pichau on 04/07/2017.
  */
-interface GameLoop : UpdatableFromDeltaTime, DrawableToCanvas {
+interface DrawableToCanvas {
 
+    fun draw(canvas: Canvas)
 }

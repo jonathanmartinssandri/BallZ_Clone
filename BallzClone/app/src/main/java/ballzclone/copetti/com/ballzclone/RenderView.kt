@@ -1,7 +1,7 @@
 package ballzclone.copetti.com.ballzclone
 
 import android.content.Context
-import android.graphics.Canvas
+import android.graphics.*
 import android.view.View
 import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.GameLoopManager
 import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.GameManager
@@ -24,8 +24,13 @@ class RenderView(context: Context) : View(context) {
     private var lastTimeStart: Float = 0.0f
 
     private val FRAME_RATE = 20.0f
+
     private var gameManager = GameManager()
+    private var viewManager = ViewManager()
     private var loopManager = GameLoopManager(gameManager, System::nanoTime, FRAME_RATE)
+
+    private val GAME_SCREEN_WIDTH = 240 * 2
+    private val GAME_SCREEN_HEIGHT = 320 * 2
 
     init {
 //        val assetManager = context.assets
@@ -41,7 +46,20 @@ class RenderView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        loopManager.update(canvas)
+
+        var frameBuffer = Bitmap.createBitmap(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT, Bitmap.Config.RGB_565)
+        var normalizedCanvas = Canvas(frameBuffer)
+        val dstRect = Rect(0, 0, canvas.width, canvas.height)
+        loopManager.update(normalizedCanvas)
+
+        var paint = Paint()
+        paint.strokeMiter = 1.0f
+        paint.color = Color.rgb(240, 240, 240)
+
+        normalizedCanvas.drawCircle(GAME_SCREEN_WIDTH / 2.0f, 0.0f, 25.0f, paint)
+        normalizedCanvas.drawCircle(GAME_SCREEN_WIDTH / 2.0f, GAME_SCREEN_HEIGHT.toFloat(), 25.0f, paint)
+
+        canvas.drawBitmap(frameBuffer, null, dstRect, null)
         invalidate()
 
 //        val timeStart = getCurrentTimeInSeconds()
