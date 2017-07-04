@@ -12,25 +12,11 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.GameManager
 
 class RenderView(context: Context) : View(context) {
 
-
-//    private val src = Rect()
-//    private val dst = Rect()
-//    private var bird: Bitmap? = null
-
-    private var lastElapsedTime : Long = 0
-
-
-    private var deltaTime: Float = 0.0f
-    private var lastTimeStart: Float = 0.0f
-
-    private val FRAME_RATE = 20.0f
+    private val FRAME_RATE = 60.0f
 
     private var gameManager = GameManager()
-    private var viewManager = ViewManager()
+    private var viewManager = ViewNormalizer()
     private var loopManager = GameLoopManager(gameManager, System::nanoTime, FRAME_RATE)
-
-    private val GAME_SCREEN_WIDTH = 240 * 2
-    private val GAME_SCREEN_HEIGHT = 320 * 2
 
     init {
 //        val assetManager = context.assets
@@ -46,22 +32,10 @@ class RenderView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        var frameBuffer = Bitmap.createBitmap(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT, Bitmap.Config.RGB_565)
-        var normalizedCanvas = Canvas(frameBuffer)
-        val dstRect = Rect(0, 0, canvas.width, canvas.height)
+        var normalizedCanvas = viewManager.createNewCanvas()
         loopManager.update(normalizedCanvas)
-
-        var paint = Paint()
-        paint.strokeMiter = 1.0f
-        paint.color = Color.rgb(240, 240, 240)
-
-        normalizedCanvas.drawCircle(GAME_SCREEN_WIDTH / 2.0f, 0.0f, 25.0f, paint)
-        normalizedCanvas.drawCircle(GAME_SCREEN_WIDTH / 2.0f, GAME_SCREEN_HEIGHT.toFloat(), 25.0f, paint)
-
-        canvas.drawBitmap(frameBuffer, null, dstRect, null)
+        viewManager.flipTo(canvas)
         invalidate()
-
 //        val timeStart = getCurrentTimeInSeconds()
 //        deltaTime += timeStart - lastTimeStart;
 //        lastTimeStart = timeStart
