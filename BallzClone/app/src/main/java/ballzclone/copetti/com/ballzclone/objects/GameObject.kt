@@ -9,7 +9,14 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFr
  */
 abstract class GameObject : DrawableToCanvas, UpdatableFromDeltaTime {
 
-    protected var x : Float = 0.0f
-    protected var y : Float = 0.0f
+    var x : Float = 0.0f
+    var y : Float = 0.0f
 
+
+    public fun setPosition(x: Float, y: Float) {
+        this.x = x
+        this.y = y
+    }
+
+    abstract fun  collidedWith(gameObject: GameObject)
 }

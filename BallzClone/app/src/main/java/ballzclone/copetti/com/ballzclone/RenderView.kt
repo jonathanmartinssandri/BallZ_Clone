@@ -16,7 +16,7 @@ class RenderView(context: Context) : View(context) {
 
     private var gameManager = GameManager()
     private var viewManager = ViewNormalizer()
-    private var loopManager = GameLoopManager(gameManager, System::nanoTime, FRAME_RATE)
+    private var loopManager = GameLoopManager(gameManager, { System.nanoTime() / 1000000000.0f }, FRAME_RATE)
 
     init {
 //        val assetManager = context.assets

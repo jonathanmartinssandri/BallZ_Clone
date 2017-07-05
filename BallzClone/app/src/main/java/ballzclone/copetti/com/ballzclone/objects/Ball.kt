@@ -3,11 +3,13 @@ package ballzclone.copetti.com.ballzclone.objects
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.util.Log
 
 /**
  * Created by Pichau on 04/07/2017.
  */
 class Ball : GameObject() {
+    var  moving: Boolean = true
 
     override fun draw(canvas: Canvas) {
 
@@ -18,13 +20,14 @@ class Ball : GameObject() {
     }
 
     override fun update(delta: Float) {
-        x += delta * 100
-        y += delta * 125
-        if (x >= 500)
-            x = 0.0f
-        if (y >= 500)
-            y = 0.0f
+        if (!moving) return
+
+        x += delta * 50
+        y += delta * 120
     }
 
+    override fun collidedWith(gameObject: GameObject) {
+        Log.d("GameDev", "Ball collision")
+    }
 
 }

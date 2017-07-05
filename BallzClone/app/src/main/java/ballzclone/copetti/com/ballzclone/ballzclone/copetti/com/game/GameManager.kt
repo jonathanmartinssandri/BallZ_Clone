@@ -4,19 +4,36 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.Ball
+import ballzclone.copetti.com.ballzclone.objects.GameObject
+import ballzclone.copetti.com.ballzclone.objects.Wall
 
 /**
  * Created by LuisCopetti on 02/07/2017.
  */
 class GameManager : GameLoop {
 
+
+    var collisionManager = CollisionManager()
     var rgbValue = 0.0f
-    var ball = Ball()
+    var balls = arrayListOf<GameObject>()
+
+    init {
+        for (i in 1..10) {
+            balls.add(Ball().apply {
+                setPosition(20.0f * i, 40.0f * i)
+            })
+        }
+
+        balls.add(Ball().apply { setPosition(480.0f, 640.0f); moving = false })
+        balls.add(Wall().apply { setPosition(480.0f, 640.0f) })
+    }
 
     override fun update(delta: Float) {
         rgbValue += delta * 100;
-        ball.update(delta)
+        balls.forEach { it.update(delta) }
+        collisionManager.update(balls)
     }
 
     override fun draw(canvas: Canvas) {
@@ -32,7 +49,7 @@ class GameManager : GameLoop {
         canvas.drawCircle(canvas.width / 2.0f, 0.0f, 25.0f, paint)
         canvas.drawCircle(canvas.width / 2.0f, canvas.height.toFloat(), 25.0f, paint)
 
-        ball.draw(canvas)
+        balls.forEach { it.draw(canvas) }
 
     }
 }
