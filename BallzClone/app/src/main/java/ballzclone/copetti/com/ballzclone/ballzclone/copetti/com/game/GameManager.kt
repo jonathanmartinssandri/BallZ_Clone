@@ -3,7 +3,6 @@ package ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.Ball
 import ballzclone.copetti.com.ballzclone.objects.GameObject

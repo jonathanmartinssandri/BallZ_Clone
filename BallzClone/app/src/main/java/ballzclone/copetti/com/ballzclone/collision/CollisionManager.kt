@@ -1,7 +1,6 @@
 package ballzclone.copetti.com.ballzclone.collision
 
 import android.util.Log
-import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFromDeltaTime
 import ballzclone.copetti.com.ballzclone.objects.GameObject
 import ballzclone.copetti.com.ballzclone.objects.Wall
 
