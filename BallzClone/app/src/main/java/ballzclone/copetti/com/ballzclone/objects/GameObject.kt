@@ -10,9 +10,14 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFr
 abstract class GameObject : DrawableToCanvas, UpdatableFromDeltaTime {
 
     protected var pos: BZVector2f = BZVector2f(0f, 0f)
+    protected var vel: BZVector2f = BZVector2f(0f, 0f)
 
     public fun getPosition() : BZVector2f {
         return pos
+    }
+
+    public fun getVelocity() : BZVector2f {
+        return vel
     }
 
     abstract fun  collidedWith(gameObject: GameObject)

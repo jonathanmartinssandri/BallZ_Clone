@@ -23,6 +23,7 @@ class GameManager : GameLoop {
         for (i in 1..10) {
             balls.add(Ball().apply {
                 getPosition().set(20.0f * i, 40.0f * i)
+                getVelocity().set(5f, 5f)
             })
         }
 

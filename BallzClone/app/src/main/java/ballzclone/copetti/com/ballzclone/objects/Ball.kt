@@ -22,7 +22,7 @@ class Ball : GameObject() {
     override fun update(delta: Float) {
         if (!moving) return
 
-        pos.add(delta * 50, delta* 120)
+        pos += vel
     }
 
     override fun collidedWith(gameObject: GameObject) {
