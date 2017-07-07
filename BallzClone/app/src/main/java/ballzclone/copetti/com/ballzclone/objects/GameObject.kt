@@ -1,6 +1,8 @@
 package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
+import android.graphics.Point
+import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.DrawableToCanvas
 import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFromDeltaTime
 
@@ -9,13 +11,10 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFr
  */
 abstract class GameObject : DrawableToCanvas, UpdatableFromDeltaTime {
 
-    var x : Float = 0.0f
-    var y : Float = 0.0f
+    protected var point: BZVector2f = BZVector2f(0f, 0f)
 
-
-    public fun setPosition(x: Float, y: Float) {
-        this.x = x
-        this.y = y
+    public fun getPosition() : BZVector2f {
+        return point
     }
 
     abstract fun  collidedWith(gameObject: GameObject)

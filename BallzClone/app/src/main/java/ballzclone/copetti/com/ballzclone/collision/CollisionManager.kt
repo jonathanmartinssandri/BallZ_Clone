@@ -35,17 +35,18 @@ class CollisionManager {
     }
 
     private fun distance(lhs: GameObject, rhs: GameObject) : Float {
-        val squaredDistance = Math.pow((lhs.x - rhs.x).toDouble(), 2.0) + Math.pow((lhs.y - rhs.y).toDouble(), 2.0)
+        val squaredDistance = Math.pow((lhs.getPosition().x - rhs.getPosition().x).toDouble(), 2.0)
+        + Math.pow((lhs.getPosition().y - rhs.getPosition().y).toDouble(), 2.0)
         return squaredDistance.toFloat()
     }
 
     private fun wallCheckCollision(lhs: Wall, rhs: GameObject) : Boolean {
 
-        if (rhs.y > lhs.y)
+        if (rhs.getPosition().y > lhs.getPosition().y)
             Log.d("GameDev", "Calling collision")
         else
             Log.d("GameDev", "NONONOCalling collision")
         val x = 25.0f
-        return rhs.y > lhs.y
+        return rhs.getPosition().x > lhs.getPosition().y
     }
 }

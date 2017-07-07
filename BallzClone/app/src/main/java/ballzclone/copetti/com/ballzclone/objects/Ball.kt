@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import ballzclone.copetti.com.ballzclone.BZVector2f
 
 /**
  * Created by Pichau on 04/07/2017.
@@ -16,14 +17,13 @@ class Ball : GameObject() {
         var paint = Paint().apply {
             color = Color.rgb(255, 0, 0)
         }
-        canvas.drawCircle(x, y, 10.0f, paint)
+        canvas.drawCircle(getPosition().x, getPosition().y, 10.0f, paint)
     }
 
     override fun update(delta: Float) {
         if (!moving) return
 
-        x += delta * 50
-        y += delta * 120
+        point.add(delta * 50, delta* 120)
     }
 
     override fun collidedWith(gameObject: GameObject) {

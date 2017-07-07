@@ -7,6 +7,7 @@ import android.util.Log
 import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.Ball
 import ballzclone.copetti.com.ballzclone.objects.GameObject
+import ballzclone.copetti.com.ballzclone.objects.Square
 import ballzclone.copetti.com.ballzclone.objects.Wall
 
 /**
@@ -22,12 +23,13 @@ class GameManager : GameLoop {
     init {
         for (i in 1..10) {
             balls.add(Ball().apply {
-                setPosition(20.0f * i, 40.0f * i)
+                getPosition().set(20.0f * i, 40.0f * i)
             })
         }
 
-        balls.add(Ball().apply { setPosition(480.0f, 640.0f); moving = false })
-        balls.add(Wall().apply { setPosition(480.0f, 640.0f) })
+        balls.add(Ball().apply { getPosition().set(480.0f, 640.0f); moving = false })
+        balls.add(Wall(Wall.Orientation.VERTICAL).apply { getPosition().set(480.0f, 640.0f) })
+        balls.add(Square(50).apply { getPosition().set(200.0f, 200.0f) })
     }
 
     override fun update(delta: Float) {
