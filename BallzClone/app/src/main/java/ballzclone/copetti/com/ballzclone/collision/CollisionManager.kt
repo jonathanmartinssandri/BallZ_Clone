@@ -16,7 +16,6 @@ class CollisionManager {
             for (j in i + 1 until gameObjects.size)
             {
                 if (checkCollision(gameObjects[i], gameObjects[j])) {
-                    Log.d("GameDev", "CollisionDetected!!")
                     gameObjects[i].collidedWith(gameObjects[j])
                     gameObjects[j].collidedWith(gameObjects[i])
                 }

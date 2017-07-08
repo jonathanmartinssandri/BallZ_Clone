@@ -15,26 +15,29 @@ class GameManager : GameLoop {
 
     var collisionManager = CollisionManager()
     var rgbValue = 0.0f
-    var balls = arrayListOf<GameObject>()
+    var gameObjects = arrayListOf<GameObject>()
 
     init {
-        for (i in 1..1) {
-            balls.add(Ball(10.0f).apply {
+        for (i in 1..10) {
+            gameObjects.add(Ball(10.0f).apply {
                 getPosition().set(20.0f * i, 40.0f * i)
-                getVelocity().set(2f, 5f)
+                getVelocity().set(1f, 5f)
             })
         }
 
-        balls.add(Ball(10.0f).apply { getPosition().set(480.0f, 640.0f); moving = false })
+        gameObjects.add(Ball(10.0f).apply { getPosition().set(480.0f, 640.0f); moving = false })
 
-        balls.add(HorizontalWall(BZVector2f(0.0f, 640.0f), 480.0f))
-        balls.add(Square(50.0f).apply { getPosition().set(200.0f, 200.0f) })
+        gameObjects.add(HorizontalWall(BZVector2f(0.0f, 640.0f), 480.0f))
+        gameObjects.add(HorizontalWall(BZVector2f(0.0f, 0.0f), 480.0f))
+        gameObjects.add(VerticalWall(BZVector2f(0.0f, 0.0f), 640.0f))
+        gameObjects.add(VerticalWall(BZVector2f(480.0f, 0.0f), 640.0f))
+        gameObjects.add(Square(50.0f).apply { getPosition().set(200.0f, 200.0f) })
     }
 
     override fun update(delta: Float) {
         rgbValue += delta * 100;
-        balls.forEach { it.update(delta) }
-        collisionManager.update(balls)
+        gameObjects.forEach { it.update(delta) }
+        collisionManager.update(gameObjects)
     }
 
     override fun draw(canvas: Canvas) {
@@ -50,7 +53,7 @@ class GameManager : GameLoop {
         canvas.drawCircle(canvas.width / 2.0f, 0.0f, 25.0f, paint)
         canvas.drawCircle(canvas.width / 2.0f, canvas.height.toFloat(), 25.0f, paint)
 
-        balls.forEach { it.draw(canvas) }
+        gameObjects.forEach { it.draw(canvas) }
 
     }
 }

@@ -25,7 +25,8 @@ abstract class Wall(rect: BZRect, orientation: Orientation) : GameObject(rect) {
             strokeMiter = 2.0f
             strokeWidth = 5.0f
         }
-        canvas.drawLine(0.0f, canvas.height.toFloat(), canvas.width.toFloat(), canvas.height.toFloat(), paint)
+        val rect = getBZRect()
+        canvas.drawLine(rect.left, rect.top, rect.right, rect.bottom, paint)
     }
 
 

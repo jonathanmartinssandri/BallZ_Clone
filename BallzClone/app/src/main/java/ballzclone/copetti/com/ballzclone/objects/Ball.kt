@@ -26,7 +26,6 @@ class Ball(radius: Float) : GameObject(radius) {
     }
 
     override fun collidedWith(gameObject: GameObject) {
-        Log.d("GameDev", "Ball collision")
     }
 
 }
