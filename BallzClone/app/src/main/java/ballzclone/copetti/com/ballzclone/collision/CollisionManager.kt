@@ -10,6 +10,19 @@ import ballzclone.copetti.com.ballzclone.objects.Wall
  */
 class CollisionManager {
 
+
+    fun <T : GameObject> checkCollisionForGroups(lhsGroup: ArrayList<out T>, rhsGroup: ArrayList<out T>)
+    {
+        for (i in 0 until lhsGroup.size)
+            for (j in 0 until rhsGroup.size)
+            {
+                if (checkCollision(lhsGroup[i], rhsGroup[j])) {
+                    lhsGroup[i].collidedWith(rhsGroup[j])
+                    rhsGroup[j].collidedWith(lhsGroup[i])
+                }
+            }
+    }
+
     fun update(gameObjects: ArrayList<GameObject>) {
 
         for (i in 0 until gameObjects.size)

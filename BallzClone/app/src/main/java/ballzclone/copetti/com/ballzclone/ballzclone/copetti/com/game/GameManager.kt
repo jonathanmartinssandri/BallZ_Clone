@@ -29,7 +29,11 @@ class GameManager : GameLoop {
         gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 0.0f), 480.0f))
         gameObjectManager.add(VerticalWall(BZVector2f(0.0f, 0.0f), 640.0f))
         gameObjectManager.add(VerticalWall(BZVector2f(480.0f, 0.0f), 640.0f))
-        gameObjectManager.add(Square(50.0f).apply { getPosition().set(200.0f, 200.0f) })
+        gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(200.0f, 200.0f) })
+        gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(200.0f, 300.0f) })
+
+        gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(400.0f, 400.0f) })
+        gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(400.0f, 550.0f) })
     }
 
     override fun update(delta: Float) {

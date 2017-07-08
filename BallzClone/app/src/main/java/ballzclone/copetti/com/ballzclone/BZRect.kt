@@ -13,4 +13,5 @@ class BZRect (left: Float, top: Float, right: Float, bottom: Float) {
     val bottom: Float = bottom
 
     fun asRect() : Rect = Rect(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
+    fun centerPoint()  = BZVector2f(left + (right - left) / 2.0f, top + (bottom - top) / 2.0f)
 }
