@@ -24,4 +24,14 @@ class BZVector2f(x: Float, y: Float) {
         this.x = x
         this.y = y
     }
+
+    fun invertX() : BZVector2f {
+        this.x = -x
+        return this
+    }
+
+    fun invertY() : BZVector2f {
+        this.y = -y;
+        return this
+    }
 }

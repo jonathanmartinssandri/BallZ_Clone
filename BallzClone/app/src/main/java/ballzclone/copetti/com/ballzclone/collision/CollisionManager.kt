@@ -1,6 +1,7 @@
 package ballzclone.copetti.com.ballzclone.collision
 
 import android.util.Log
+import ballzclone.copetti.com.ballzclone.AABBCollision
 import ballzclone.copetti.com.ballzclone.objects.GameObject
 import ballzclone.copetti.com.ballzclone.objects.Wall
 
@@ -39,13 +40,6 @@ class CollisionManager {
         return squaredDistance.toFloat()
     }
 
-    private fun wallCheckCollision(lhs: Wall, rhs: GameObject) : Boolean {
-
-        if (rhs.getPosition().y > lhs.getPosition().y)
-            Log.d("GameDev", "Calling collision")
-        else
-            Log.d("GameDev", "NONONOCalling collision")
-        val x = 25.0f
-        return rhs.getPosition().x > lhs.getPosition().y
-    }
+    private fun wallCheckCollision(lhs: Wall, rhs: GameObject) =
+            AABBCollision.checkCollision(lhs.getBZRect(), rhs.getBZRect())
 }

@@ -8,7 +8,7 @@ import android.util.Log
 /**
  * Created by Pichau on 04/07/2017.
  */
-class Ball : GameObject() {
+class Ball(radius: Float) : GameObject(radius) {
     var  moving: Boolean = true
 
     override fun draw(canvas: Canvas) {
