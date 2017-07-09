@@ -36,6 +36,7 @@ class GameManager : GameLoop {
         gameObjectManager.add(VerticalWall(BZVector2f(480.0f, 0.0f), 640.0f))
         gameObjectManager.add(ballCannon)
         gameObjectManager.add(ballGrid)
+        gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
         ballCannon.fire(30.0f, 5)
     }
 
