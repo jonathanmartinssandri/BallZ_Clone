@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Point
 import ballzclone.copetti.com.ballzclone.BZVector2f
+import ballzclone.copetti.com.ballzclone.GameDefine
 import ballzclone.copetti.com.ballzclone.GameObjectManager
 import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.*
@@ -23,7 +24,7 @@ class GameManager : GameLoop {
         for (i in 1..10) {
             gameObjectManager.add(Ball(10.0f).apply {
                 getPosition().set(20.0f * i, 40.0f * i)
-                getVelocity().set(1f, 5f)
+                getVelocity().set(1f, GameDefine.ball_velocity)
             })
         }
 

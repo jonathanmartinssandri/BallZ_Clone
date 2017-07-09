@@ -2,6 +2,7 @@ package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
 import android.graphics.Point
+import java.util.*
 
 /**
  * Created by Pichau on 08/07/2017.
@@ -57,7 +58,8 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
     private fun putRandomBlocksOnTop() {
 
         var numberOfBlocks = (Math.random() * grid[0].size).toInt()
-        val list = IntRange(0, grid[0].size).toList().toIntArray().sortedBy { Math.random() > 0.5 }
+        val list = IntRange(0, grid[0].size).toList().toMutableList()
+        Collections.shuffle(list)
 
         for (i in list.take(numberOfBlocks)) {
             createSquareAt(i, 0)

@@ -2,6 +2,7 @@ package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
 import ballzclone.copetti.com.ballzclone.BZVector2f
+import ballzclone.copetti.com.ballzclone.GameDefine
 
 /**
  * Created by Pichau on 08/07/2017.
@@ -48,11 +49,9 @@ class BallCannon : GameObject(1.0f) {
         val normalizedAngle = if (shootingAngle > 0.0)
             90.0 - shootingAngle else shootingAngle * -1 + 90.0
 
-        val BALL_VELOCITY = 6.0f
-
         val radiansAngle = Math.toRadians(normalizedAngle)
 
-        return BZVector2f(Math.sin(radiansAngle).toFloat(), - Math.cos(radiansAngle).toFloat()) * BALL_VELOCITY
+        return BZVector2f(Math.sin(radiansAngle).toFloat(), - Math.cos(radiansAngle).toFloat()) * GameDefine.ball_velocity
     }
 
     override fun draw(canvas: Canvas) {
