@@ -3,6 +3,7 @@ package ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Point
 import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.GameObjectManager
 import ballzclone.copetti.com.ballzclone.collision.CollisionManager
@@ -16,6 +17,7 @@ class GameManager : GameLoop {
     var rgbValue = 0.0f
     var gameObjectManager = GameObjectManager()
     var ballCannon = BallCannon()
+    var ballGrid = SquareGrid(Point(7, 10), 5.0f)
 
     init {
         for (i in 1..10) {
@@ -37,7 +39,9 @@ class GameManager : GameLoop {
         gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(400.0f, 400.0f) })
         gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(400.0f, 550.0f) })
         gameObjectManager.add(ballCannon)
+        gameObjectManager.add(ballGrid)
         ballCannon.fire(30.0f, 5)
+        ballGrid.advance()
     }
 
     override fun update(delta: Float) {

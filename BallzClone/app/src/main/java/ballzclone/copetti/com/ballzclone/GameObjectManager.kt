@@ -18,16 +18,13 @@ class GameObjectManager {
     var toBeAdded = arrayListOf<GameObject>()
 
     fun add(gameObject: GameObject) {
+        gameObject.parent = this
         toBeAdded.add(gameObject)
     }
 
     fun safeAdd() {
 
-        toBeAdded.forEach {
-            it.parent = this
-
-            if (it is Ball) balls.add(it) else objects.add(it)
-        }
+        toBeAdded.forEach { if (it is Ball) balls.add(it) else objects.add(it) }
         toBeAdded.clear()
     }
 

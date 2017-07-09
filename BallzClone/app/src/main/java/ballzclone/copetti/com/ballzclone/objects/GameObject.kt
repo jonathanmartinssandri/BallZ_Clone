@@ -24,6 +24,7 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
 
     fun getPosition() : BZVector2f = pos
     fun getVelocity() : BZVector2f = vel
+    fun getRectSize() : BZVector2f = size
 
     abstract fun  collidedWith(gameObject: GameObject)
     fun isDead() = dead
