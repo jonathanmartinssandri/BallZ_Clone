@@ -33,20 +33,15 @@ class GameManager : GameLoop {
         gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 0.0f), 480.0f))
         gameObjectManager.add(VerticalWall(BZVector2f(0.0f, 0.0f), 640.0f))
         gameObjectManager.add(VerticalWall(BZVector2f(480.0f, 0.0f), 640.0f))
-        gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(200.0f, 200.0f) })
-        gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(200.0f, 300.0f) })
-
-        gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(400.0f, 400.0f) })
-        gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(400.0f, 550.0f) })
         gameObjectManager.add(ballCannon)
         gameObjectManager.add(ballGrid)
         ballCannon.fire(30.0f, 5)
-        ballGrid.advance()
     }
 
     override fun update(delta: Float) {
         rgbValue += delta * 100;
         gameObjectManager.update(delta)
+        ballGrid.advance()
     }
 
     override fun draw(canvas: Canvas) {
