@@ -15,6 +15,7 @@ class GameManager : GameLoop {
 
     var rgbValue = 0.0f
     var gameObjectManager = GameObjectManager()
+    var ballCannon = BallCannon()
 
     init {
         for (i in 1..10) {
@@ -24,6 +25,7 @@ class GameManager : GameLoop {
             })
         }
 
+        ballCannon.getPosition().set(240.0f, 300.0f)
         gameObjectManager.add(Ball(10.0f).apply { getPosition().set(480.0f, 640.0f); moving = false })
         gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 640.0f), 480.0f))
         gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 0.0f), 480.0f))
@@ -34,6 +36,8 @@ class GameManager : GameLoop {
 
         gameObjectManager.add(Square(50.0f, 15).apply { getPosition().set(400.0f, 400.0f) })
         gameObjectManager.add(Square(50.0f, 25).apply { getPosition().set(400.0f, 550.0f) })
+        gameObjectManager.add(ballCannon)
+        ballCannon.fire(30.0f, 5)
     }
 
     override fun update(delta: Float) {

@@ -35,16 +35,8 @@ class CollisionManager {
             }
     }
 
-    private fun checkCollision(lhs: GameObject, rhs: GameObject) : Boolean {
-
-        if (!(lhs is Wall) && !(rhs is Wall))
-            return false
-
-        if (lhs is Wall)
-            return wallCheckCollision(lhs, rhs)
-        else
-            return wallCheckCollision(rhs as Wall, lhs)
-    }
+    private fun checkCollision(lhs: GameObject, rhs: GameObject) =
+            AABBCollision.checkCollision(lhs.getBZRect(), rhs.getBZRect())
 
     private fun distance(lhs: GameObject, rhs: GameObject) : Float {
         val squaredDistance = Math.pow((lhs.getPosition().x - rhs.getPosition().x).toDouble(), 2.0)
@@ -52,6 +44,4 @@ class CollisionManager {
         return squaredDistance.toFloat()
     }
 
-    private fun wallCheckCollision(lhs: Wall, rhs: GameObject) =
-            AABBCollision.checkCollision(lhs.getBZRect(), rhs.getBZRect())
 }

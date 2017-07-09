@@ -46,6 +46,6 @@ class Square(sideSize: Float, collisionValue: Int) : GameObject(sideSize.toFloat
         collisionValue--
 
         if (collisionValue < 1)
-            removeFromParent()
+            dead = true
     }
 }

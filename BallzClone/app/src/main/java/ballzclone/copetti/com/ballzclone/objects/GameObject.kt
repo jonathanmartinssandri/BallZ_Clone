@@ -12,6 +12,7 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.UpdatableFr
 abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTime {
 
     var parent: GameObjectManager? = null
+    protected var dead: Boolean = false
 
     protected var pos: BZVector2f = BZVector2f(rect.left, rect.top)
     protected var vel: BZVector2f = BZVector2f(0f, 0f)
@@ -19,12 +20,11 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
 
     constructor(sizeSize: Float) : this(BZRect(0f, 0f, sizeSize, sizeSize))
 
-    public fun getBZRect() : BZRect =  BZRect(pos.x, pos.y, pos.x + size.x, pos.y + size.y)
+    fun getBZRect() : BZRect =  BZRect(pos.x, pos.y, pos.x + size.x, pos.y + size.y)
 
-    public fun getPosition() : BZVector2f = pos
-    public fun getVelocity() : BZVector2f = vel
-
-    fun removeFromParent() = parent?.remove(this)
+    fun getPosition() : BZVector2f = pos
+    fun getVelocity() : BZVector2f = vel
 
     abstract fun  collidedWith(gameObject: GameObject)
+    fun isDead() = dead
 }
