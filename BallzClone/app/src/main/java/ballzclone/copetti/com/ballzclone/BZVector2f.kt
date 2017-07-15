@@ -4,6 +4,7 @@ package ballzclone.copetti.com.ballzclone
  * Created by Pichau on 06/07/2017.
  */
 class BZVector2f(x: Float, y: Float) {
+
     var x: Float = x
     var y: Float = y
 
@@ -13,6 +14,11 @@ class BZVector2f(x: Float, y: Float) {
         x += rhs.x
         y += rhs.y
         return this
+    }
+
+    override operator fun equals(rhs: Any?) = when(rhs) {
+        is BZVector2f -> x == rhs.x && y == rhs.y
+        else -> false
     }
 
     fun add(x: Float, y: Float) {
@@ -40,4 +46,6 @@ class BZVector2f(x: Float, y: Float) {
         this.y *= num
         return this
     }
+
+    operator fun  minus(position: BZVector2f) = BZVector2f(x - position.x, y - position.y)
 }
