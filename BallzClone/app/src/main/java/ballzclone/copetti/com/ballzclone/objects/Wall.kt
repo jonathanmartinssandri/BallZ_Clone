@@ -8,14 +8,7 @@ import ballzclone.copetti.com.ballzclone.BZRect
 /**
  * Created by Pichau on 04/07/2017.
  */
-abstract class Wall(rect: BZRect, orientation: Orientation) : GameObject(rect) {
-
-    enum class Orientation {
-        VERTICAL, HORIZONTAL
-    }
-
-    private var orientation: Orientation = orientation
-
+class Wall(rect: BZRect) : GameObject(rect) {
 
     override fun update(delta: Float) { }
 

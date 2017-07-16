@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Point
+import ballzclone.copetti.com.ballzclone.BZRect
 import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.GameDefine
 import ballzclone.copetti.com.ballzclone.GameObjectManager
@@ -28,12 +29,19 @@ class GameManager : GameLoop {
             })
         }
 
+        val margin = 3f
+
+        val horizontalTop = Wall(BZRect(0f, 0f - 25f, 480f, 0f + margin))
+        val horizontalBottom = Wall(BZRect(0f, 640f - margin, 480f, 640f + 25f))
+        val verticalLeft = Wall(BZRect(0f - 25f, 0f, 0f + margin, 640f))
+        val verticalRight = Wall(BZRect(480f - margin, 0f, 480f + 25f, 640f))
+
         ballCannon.getPosition().set(240.0f, 300.0f)
-        gameObjectManager.add(Ball(10.0f).apply { getPosition().set(480.0f, 640.0f); moving = false })
-        gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 640.0f), 480.0f))
-        gameObjectManager.add(HorizontalWall(BZVector2f(0.0f, 0.0f), 480.0f))
-        gameObjectManager.add(VerticalWall(BZVector2f(0.0f, 0.0f), 640.0f))
-        gameObjectManager.add(VerticalWall(BZVector2f(480.0f, 0.0f), 640.0f))
+        gameObjectManager.add(horizontalTop)
+        gameObjectManager.add(horizontalBottom)
+        gameObjectManager.add(verticalLeft)
+        gameObjectManager.add(verticalRight)
+
         gameObjectManager.add(ballCannon)
         gameObjectManager.add(ballGrid)
         gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
