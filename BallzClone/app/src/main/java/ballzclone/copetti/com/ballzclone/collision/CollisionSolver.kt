@@ -28,7 +28,7 @@ class CollisionSolver {
     fun getCollisionOnAxis(lhs: BZRect, rhs: BZRect, axis: BZVector2f) : CollisionManifold{
         val lhsCenter = lhs.centerPoint()
         val rhsCenter = rhs.centerPoint()
-        val distanceVector = (lhs.centerPoint() - rhs.centerPoint())
+        val distanceVector = (rhs.centerPoint() - lhs.centerPoint())
 
         val hwFactorOnX = if (lhsCenter.x < rhsCenter.x) 1.0f else - 1.0f
         val hwFactorOnY = if (lhsCenter.y < rhsCenter.y) 1.0f else - 1.0f
@@ -41,11 +41,16 @@ class CollisionSolver {
         val lhsProjection = Math.abs(hwVectorA.dot(axis))
         val rhsProjection = Math.abs(hwVectorB.dot(axis))
 
-        val overlap = centerProjection - lhsProjection - rhsProjection
-        return if(overlap > 0f) noCollision() else collision(axis, overlap)
+        val overlap = lhsProjection + rhsProjection - centerProjection
+
+        if (overlap < 0f)
+            return noCollision()
+
+        val directedAxis = if (distanceVector.dot(axis) < 0f) axis * -1f else axis
+        return collision(directedAxis, overlap)
     }
 
 
-    fun collision(direction: BZVector2f, penetration: Float) = CollisionManifold(true, direction, Math.abs(penetration))
-    fun noCollision() = CollisionManifold(false, BZVector2f(0f, 0f), 0f)
+    private fun collision(direction: BZVector2f, penetration: Float) = CollisionManifold(true, direction, Math.abs(penetration))
+    private fun noCollision() = CollisionManifold(false, BZVector2f(0f, 0f), 0f)
 }

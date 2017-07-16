@@ -52,4 +52,8 @@ class BZVector2f(x: Float, y: Float) {
     fun  dot(rhs: BZVector2f): Float {
         return x * rhs.x + y * rhs.y
     }
+
+    override fun toString(): String {
+        return "[${x}, ${y}]"
+    }
 }

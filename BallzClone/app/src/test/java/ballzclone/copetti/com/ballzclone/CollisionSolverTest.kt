@@ -23,51 +23,6 @@ class CollisionSolverTest {
 
     val collidingLargeYlhs = BZRect(BZVector2f(10f, 10f), 5f, 5f)
     val collidingLargeYrhs = BZRect(BZVector2f(10f, 15f), 2.5f, 2.5f)
-//    @Test
-//    fun testCollisionForSquaresWithShadowOnX() {
-//        val lhs = BZRect(BZVector2f(5f, 5f), 5f, 5f)
-//        val rhs = BZRect(BZVector2f(7.5f, 20f), 5f, 5f)
-//        assertTrue(CollisionSolver().areCollidingOnAxisX(lhs, rhs))
-//        assertFalse(CollisionSolver().areCollidingOnAxisY(lhs, rhs))
-//    }
-//
-//    @Test
-//    fun testCollisionIsCommutative() {
-//        val lhs = BZRect(BZVector2f(5f, 5f), 5f, 5f)
-//        val rhs = BZRect(BZVector2f(7.5f, 20f), 5f, 5f)
-//        assertTrue(CollisionSolver().areCollidingOnAxisX(lhs, rhs))
-//        assertFalse(CollisionSolver().areCollidingOnAxisY(lhs, rhs))
-//
-//        assertTrue(CollisionSolver().areCollidingOnAxisX(rhs, lhs))
-//        assertFalse(CollisionSolver().areCollidingOnAxisY(rhs, lhs))
-//    }
-//
-//    @Test
-//    fun testCollisionShadowingFor_Y_Axis() {
-//        val lhs = BZRect(BZVector2f(5f, 5f), 5f, 5f)
-//        val rhs = BZRect(BZVector2f(25f, 7.5f), 5f, 5f)
-//        assertFalse(CollisionSolver().areCollidingOnAxisX(lhs, rhs))
-//        assertTrue(CollisionSolver().areCollidingOnAxisY(lhs, rhs))
-//    }
-//
-//    @Test
-//    fun testATouchIsAlsoCollision() {
-//        val lhs = BZRect(BZVector2f(5f, 5f), 5f, 5f)
-//        val rhs = BZRect(BZVector2f(15f, 5f), 5f, 5f)
-//        assertTrue(CollisionSolver().areCollidingOnAxisX(lhs, rhs))
-//        assertTrue(CollisionSolver().areCollidingOnAxisY(lhs, rhs))
-//    }
-
-//    @Test
-//    fun testManifoldDirectionOn_X_DominantCollision() {
-//        val lhs = BZRect(BZVector2f(5f, 5f), 5f, 5f)
-//        val rhs = BZRect(BZVector2f(13f, 5f), 5f, 5f)
-//        val coll = CollisionSolver().getCollision()
-////        assertTrue(coll.)
-//    }
-
-
-
 
     @Test
     fun testCollisionOnX() {
@@ -102,15 +57,37 @@ class CollisionSolverTest {
     fun testCollisionAABB_XlargerPenetration() {
         val coll = CollisionSolver().getCollision(collidingLargeXlhs, collidingLargeXrhs)
         assertTrue(coll.collided)
-        assertEquals(coll.collisionNormal, BZVector2f(1f, 0f))
-        assertEquals(coll.penetration, 1f)
+        assertEquals(BZVector2f(1f, 0f), coll.collisionNormal)
+        assertEquals(1f, coll.penetration)
+    }
+
+    @Test
+    fun testCollisionAABB_CollisionNormalShouldAlwaysPushAwayRhsObjectFirstTest() {
+
+        val left = BZRect(BZVector2f(10f, 5f), 10f, 5f)
+        val right = BZRect(BZVector2f(22.5f, 5f) ,5f, 2.5f)
+        val coll = CollisionSolver().getCollision(left, right)
+        assertTrue(coll.collided)
+        assertEquals(BZVector2f(1f, 0f), coll.collisionNormal)
+        assertEquals(2.5f, coll.penetration)
+    }
+
+    @Test
+    fun testCollisionAABB_CollisionNormalShouldAlwaysPushAwayRhsObjectSecondTest() {
+
+        val left = BZRect(BZVector2f(17.5f, 5f), 10f, 5f)
+        val right = BZRect(BZVector2f(5f, 5f) ,5f, 2.5f)
+        val coll = CollisionSolver().getCollision(left, right)
+        assertTrue(coll.collided)
+        assertEquals(coll.collisionNormal, BZVector2f(-1f, 0f))
+        assertEquals(coll.penetration, 2.5f)
     }
 
     @Test
     fun testCollisionAABB_YlargerPenetration() {
         val coll = CollisionSolver().getCollision(collidingLargeYlhs, collidingLargeYrhs)
         assertTrue(coll.collided)
-        assertEquals(coll.collisionNormal, BZVector2f(0f, 1f))
+        assertEquals(BZVector2f(0f, 1f), coll.collisionNormal)
         assertEquals(2.5f, coll.penetration)
     }
 }
