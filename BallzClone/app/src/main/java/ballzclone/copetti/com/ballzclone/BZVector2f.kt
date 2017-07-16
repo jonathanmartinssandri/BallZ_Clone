@@ -48,4 +48,8 @@ class BZVector2f(x: Float, y: Float) {
     }
 
     operator fun  minus(position: BZVector2f) = BZVector2f(x - position.x, y - position.y)
+
+    fun  dot(rhs: BZVector2f): Float {
+        return x * rhs.x + y * rhs.y
+    }
 }
