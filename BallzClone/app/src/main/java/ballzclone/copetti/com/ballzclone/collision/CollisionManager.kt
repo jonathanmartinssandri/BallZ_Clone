@@ -35,7 +35,14 @@ class CollisionManager {
 
     fun checkBallOnAABBCollision(b: Ball, s: Square) : Boolean {
 
-        return CollisionSolver().getCollision(b.getBZRect(), s.getBZRect()).collided;
+        val collision = CollisionSolver().getCollision(s.getBZRect(), b.getBZRect())
+
+        if (!collision.collided)
+            return false
+
+        val restitution = CollisionRestitution();
+        restitution.handleRestituition(b, collision)
+        return true;
     }
 
     fun getClosestPoint(b: Ball, s: Square) : BZVector2f {
@@ -73,8 +80,13 @@ class CollisionManager {
             }
     }
 
-    private fun checkCollision(lhs: GameObject, rhs: GameObject) =
-            AABBCollision.checkCollision(lhs.getBZRect(), rhs.getBZRect())
+    private fun checkCollision(lhs: GameObject, rhs: GameObject) : Boolean {
+
+        if (lhs is Ball && rhs is Square)
+            return checkBallOnAABBCollision(lhs, rhs)
+
+        return AABBCollision.checkCollision(lhs.getBZRect(), rhs.getBZRect())
+    }
 
     private fun distance(lhs: GameObject, rhs: GameObject) : Float {
         val squaredDistance = Math.pow((lhs.getPosition().x - rhs.getPosition().x).toDouble(), 2.0)
