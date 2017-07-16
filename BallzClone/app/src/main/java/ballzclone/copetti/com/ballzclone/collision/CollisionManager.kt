@@ -35,9 +35,7 @@ class CollisionManager {
 
     fun checkBallOnAABBCollision(b: Ball, s: Square) : Boolean {
 
-        val closestPoint = getClosestPoint(b, s)
-        val diffVector = closestPoint - b.getPosition()
-        return true;
+        return CollisionSolver().getCollision(b.getBZRect(), s.getBZRect()).collided;
     }
 
     fun getClosestPoint(b: Ball, s: Square) : BZVector2f {
