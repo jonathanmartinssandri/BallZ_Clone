@@ -42,9 +42,7 @@ class BZVector2f(x: Float, y: Float) {
     }
 
     operator fun times(num: Float) : BZVector2f {
-        this.x *= num
-        this.y *= num
-        return this
+        return BZVector2f(x * num, y * num)
     }
 
     operator fun  minus(position: BZVector2f) = BZVector2f(x - position.x, y - position.y)
