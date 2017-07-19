@@ -19,7 +19,7 @@ class Wall(rect: BZRect) : GameObject(rect) {
             strokeWidth = 5.0f
         }
         val rect = getBZRect()
-        canvas.drawLine(rect.left, rect.top, rect.right, rect.bottom, paint)
+        canvas.drawRect(rect.asRect(), paint)
     }
 
 

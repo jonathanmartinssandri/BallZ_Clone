@@ -38,7 +38,7 @@ class BallCannon : GameObject(1.0f) {
 
         val velVector : BZVector2f = computeVelocityVector()
 
-        val newBall = Ball(15.0f).apply { getVelocity().set(velVector.x, velVector.y); getPosition().set(this@BallCannon.pos.x, this@BallCannon.pos.y) }
+        val newBall = Ball(GameDefine.ball_radius).apply { getVelocity().set(velVector.x, velVector.y); getPosition().set(this@BallCannon.pos.x, this@BallCannon.pos.y) }
         parent?.add(newBall)
 
         countingInterval = 0.0f

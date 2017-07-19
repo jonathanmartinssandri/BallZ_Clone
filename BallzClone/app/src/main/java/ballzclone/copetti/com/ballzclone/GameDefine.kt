@@ -6,7 +6,7 @@ package ballzclone.copetti.com.ballzclone
 object GameDefine {
 
 
-    val ball_velocity: Float = 10.0f
+    val ball_velocity: Float = 250.0f
     val ball_radius: Float = 15.0f
     val ball_powerup_radius: Float = 15.0f
 

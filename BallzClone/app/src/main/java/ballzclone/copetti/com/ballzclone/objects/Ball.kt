@@ -16,13 +16,15 @@ class Ball(radius: Float) : GameObject(radius) {
         var paint = Paint().apply {
             color = Color.rgb(255, 0, 0)
         }
-        canvas.drawCircle(getPosition().x, getPosition().y, 10.0f, paint)
+
+        val center = getBZRect().centerPoint()
+        canvas.drawCircle(center.x, center.y, size.y / 2.0f, paint)
     }
 
     override fun update(delta: Float) {
         if (!moving) return
 
-        pos += vel
+        pos += vel * delta
     }
 
     override fun collidedWith(gameObject: GameObject) {

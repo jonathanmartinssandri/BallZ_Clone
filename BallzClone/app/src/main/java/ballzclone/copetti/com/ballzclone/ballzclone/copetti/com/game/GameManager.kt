@@ -23,7 +23,7 @@ class GameManager : GameLoop {
 
     init {
         for (i in 1..10) {
-            gameObjectManager.add(Ball(10.0f).apply {
+            gameObjectManager.add(Ball(GameDefine.ball_radius).apply {
                 getPosition().set(20.0f * i, 40.0f * i)
                 getVelocity().set(1f, GameDefine.ball_velocity)
             })
