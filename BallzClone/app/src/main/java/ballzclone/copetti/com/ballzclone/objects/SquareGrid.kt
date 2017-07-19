@@ -31,11 +31,16 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
         if (squareGridState == SquareGridState.DORMANT)
             return
 
-        if (updateAllBlocksPosition(delta)) {
-            squareGridState = SquareGridState.DORMANT
-            putRandomBlocksOnTop()
-        }
+        updateBlocks(delta)
+    }
 
+    private fun updateBlocks(delta: Float) {
+
+        if (!updateAllBlocksPosition(delta))
+            return
+
+        squareGridState = SquareGridState.DORMANT
+        putRandomBlocksOnTop()
     }
 
     private fun cleanUpTheDead()
