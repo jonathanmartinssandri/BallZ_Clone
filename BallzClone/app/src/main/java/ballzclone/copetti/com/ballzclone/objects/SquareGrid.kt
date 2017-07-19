@@ -2,6 +2,8 @@ package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
 import android.graphics.Point
+import ballzclone.copetti.com.ballzclone.BZVector2f
+import ballzclone.copetti.com.ballzclone.GameDefine
 import java.util.*
 
 /**
@@ -9,14 +11,35 @@ import java.util.*
  */
 class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
 
+    enum class SquareGridState
+    {
+        ADVANCING, DORMANT
+    }
+
     val margin: Float = margin
 
     val widthSize = gridSize.x
     val heightSize = gridSize.y
     val grid = Array<Array<Square?>>(gridSize.y, { Array<Square?>(gridSize.x, { null }) })
 
+    var squareGridState = SquareGridState.DORMANT
+
     override fun update(delta: Float) {
 
+        cleanUpTheDead()
+
+        if (squareGridState == SquareGridState.DORMANT)
+            return
+
+        if (updateAllBlocksPosition(delta)) {
+            squareGridState = SquareGridState.DORMANT
+            putRandomBlocksOnTop()
+        }
+
+    }
+
+    private fun cleanUpTheDead()
+    {
         for (x in 0 until grid.size)
             for (y in 0 until grid[0].size) {
                 val square = grid[x][y]
@@ -30,20 +53,47 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
         if (anyBlockReachedTheMinimumHeight())
             return false
 
+        if (squareGridState == SquareGridState.ADVANCING)
+            return false
+
         advanceAllBlocks()
-        putRandomBlocksOnTop()
+        squareGridState = SquareGridState.ADVANCING
         return true
     }
 
     private fun advanceAllBlocks() {
+
         for (y in grid[0].size - 2 downTo 0)
             for (x in grid.size - 2 downTo 0) {
                 val currentSquare = grid[x][y]
                 if (currentSquare != null) {
-                    setSquarePosition(x, y + 1, currentSquare)
+                    grid[x][y + 1] = currentSquare
                     grid[x][y] = null
                 }
             }
+    }
+
+    private fun updateAllBlocksPosition(delta: Float) : Boolean {
+
+        var finished: Boolean? = null
+
+        for (x in 0 until grid.size)
+            for (y in 0 until grid[0].size) {
+                val square = grid[x][y]
+                if (square == null)
+                    continue
+
+                if (square.getPosition().y >= y * (margin + square.getRectSize().y)) {
+                    finished = true
+                    continue
+                }
+
+                finished = false
+                val newPosition = square.getPosition() + (GameDefine.grid_velocity * delta)
+                square.getPosition().set(newPosition.x, newPosition.y)
+        }
+
+        return if (finished == null) return true else finished
     }
 
     private fun anyBlockReachedTheMinimumHeight() : Boolean {
@@ -66,14 +116,10 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
         }
     }
 
-    fun setSquarePosition(x: Int, y: Int, square: Square) {
-        grid[x][y] = square
-        square.getPosition().set(x * (margin + square.getRectSize().x), y * (margin + square.getRectSize().y))
-    }
-
     fun createSquareAt(x: Int, y: Int) {
         val square = Square(50.0f, 10)
-        setSquarePosition(x, y, square)
+        grid[x][y] = square
+        square.getPosition().set(x * (margin + square.getRectSize().x), y * (margin + square.getRectSize().y))
         parent?.add(square)
     }
 
