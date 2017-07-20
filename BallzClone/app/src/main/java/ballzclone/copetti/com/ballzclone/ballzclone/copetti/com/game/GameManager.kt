@@ -16,7 +16,6 @@ import ballzclone.copetti.com.ballzclone.objects.*
  */
 class GameManager : GameLoop {
 
-    var rgbValue = 0.0f
     var gameObjectManager = GameObjectManager()
     var ballCannon = BallCannon()
     var ballGrid = SquareGrid(Point(7, 10), 5.0f)
@@ -45,28 +44,16 @@ class GameManager : GameLoop {
         gameObjectManager.add(ballCannon)
         gameObjectManager.add(ballGrid)
         gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
-        ballCannon.fire(30.0f, 25)
+        ballCannon.fire(30.0f, 55)
     }
 
     override fun update(delta: Float) {
-        rgbValue += delta * 100;
         gameObjectManager.update(delta)
         ballGrid.advance()
     }
 
     override fun draw(canvas: Canvas) {
-        if (rgbValue > 255.0f)
-            rgbValue = 0.0f
-        val intRGBValue :Int = rgbValue.toInt()
-        canvas.drawColor(Color.rgb(intRGBValue, intRGBValue, intRGBValue))
-
-        var paint = Paint()
-        paint.strokeMiter = 1.0f
-        paint.color = Color.rgb(240, 240, 240)
-
-        canvas.drawCircle(canvas.width / 2.0f, 0.0f, 25.0f, paint)
-        canvas.drawCircle(canvas.width / 2.0f, canvas.height.toFloat(), 25.0f, paint)
-
+        canvas.drawColor(Color.rgb(0xEE, 0xEE, 0xEE))
         gameObjectManager.draw(canvas)
     }
 }

@@ -9,8 +9,6 @@ import ballzclone.copetti.com.ballzclone.GameDefine
  */
 class BallCannon : GameObject(1.0f) {
 
-    private val SHOOTING_INTERVAL = 0.5f
-
     private var shooting = false
     private var remainingBalls: Int = 0
     private var shootingAngle = 0.0f
@@ -23,7 +21,7 @@ class BallCannon : GameObject(1.0f) {
         remainingBalls = numberOfBalls
         shootingAngle = degreeAngle
         shooting = true
-        countingInterval = SHOOTING_INTERVAL
+        countingInterval = GameDefine.cannon_shooting_interval
     }
 
     override fun update(delta: Float) {
@@ -33,7 +31,7 @@ class BallCannon : GameObject(1.0f) {
 
         countingInterval += delta
 
-        if (countingInterval < SHOOTING_INTERVAL)
+        if (countingInterval < GameDefine.cannon_shooting_interval)
             return
 
         val velVector : BZVector2f = computeVelocityVector()
