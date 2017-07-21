@@ -31,6 +31,13 @@ class GameLoopManager (gameLoop: GameLoop, timeInSecondsSupplier: () -> Float, f
         if (deltaTime < fixedTimeStep)
             return
 
+        /*
+            Verification to avoid successive and unnecessary updates after
+            stopping the code for debugging purposes, for example.
+         */
+        if (deltaTime >= 5 * fixedTimeStep)
+            deltaTime = fixedTimeStep
+
         gameLoop.update(deltaTime)
         deltaTime = 0.0f
     }
