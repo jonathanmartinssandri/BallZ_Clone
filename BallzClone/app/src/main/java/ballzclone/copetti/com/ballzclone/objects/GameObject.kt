@@ -13,6 +13,7 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
 
     var parent: GameObjectManager? = null
     protected var dead: Boolean = false
+    var collidable: Boolean = true
 
     protected var pos: BZVector2f = BZVector2f(rect.left, rect.top)
     protected var vel: BZVector2f = BZVector2f(0f, 0f)
@@ -27,5 +28,7 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
     fun getRectSize() : BZVector2f = size
 
     open fun  collidedWith(gameObject: GameObject) { }
+
     fun isDead() = dead
+    fun die() { dead = true }
 }

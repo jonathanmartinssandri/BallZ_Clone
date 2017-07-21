@@ -8,7 +8,9 @@ import ballzclone.copetti.com.ballzclone.BZRect
 /**
  * Created by Pichau on 04/07/2017.
  */
-class Wall(rect: BZRect) : GameObject(rect) {
+class Wall(rect: BZRect, deadly: Boolean = false) : GameObject(rect) {
+
+    var deadly: Boolean = deadly
 
     override fun update(delta: Float) { }
 
@@ -22,5 +24,10 @@ class Wall(rect: BZRect) : GameObject(rect) {
         canvas.drawRect(rect.asRect(), paint)
     }
 
+    override fun collidedWith(gameObject: GameObject) {
+
+        if (deadly)
+            gameObject.die()
+    }
 
 }

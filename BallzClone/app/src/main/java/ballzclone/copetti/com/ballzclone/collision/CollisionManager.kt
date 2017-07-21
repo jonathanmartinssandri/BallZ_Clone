@@ -20,9 +20,16 @@ class CollisionManager {
         if (!collision.collided)
             return false
 
+        if (s.collidable && b.collidable)
+            handleCollisionRestitution(b, collision)
+
+        return true;
+    }
+
+    fun handleCollisionRestitution(b: Ball, collision: CollisionManifold)
+    {
         val restitution = CollisionRestitution();
         restitution.handleRestituition(b, collision)
-        return true;
     }
 
     fun <T : GameObject> checkCollisionForGroups(lhsGroup: ArrayList<Ball>, rhsGroup: ArrayList<out T>)
