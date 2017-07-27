@@ -18,17 +18,6 @@ class RenderView(context: Context) : View(context) {
     private var viewManager = ViewNormalizer()
     private var loopManager = GameLoopManager(gameManager, { System.nanoTime() / 1000000000.0f }, FRAME_RATE)
 
-    init {
-//        val assetManager = context.assets
-//        try {
-//            val inputStream = assetManager.open("bird.png")
-//            bird = BitmapFactory.decodeStream(inputStream)
-//            inputStream.close()
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//            Toast.makeText(context, "Erro ao carregar asset: bird.png", Toast.LENGTH_LONG).show()
-//        }
-    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -36,33 +25,9 @@ class RenderView(context: Context) : View(context) {
         loopManager.update(normalizedCanvas)
         viewManager.flipTo(canvas)
         invalidate()
-//        val timeStart = getCurrentTimeInSeconds()
-//        deltaTime += timeStart - lastTimeStart;
-//        lastTimeStart = timeStart
-//
-//        if (deltaTime < fixedTimeStep) {
-//            invalidate()
-//            return
-//        }
-//
-//        gameManager.update(deltaTime)
-//        deltaTime = 0.0f
-//        gameManager.draw(canvas)
-//        val image = Bitmap.createBitmap(100, 100, Bitmap.Config.RGB_565)
-//        val imageCanvas = Canvas(image)
-//        val paint = Paint()
-//        paint.style = Paint.Style.STROKE
-//        paint.strokeWidth = 10f
-//        paint.color = Color.RED
-//        imageCanvas.drawCircle((image.width / 2).toFloat(), (image.height / 2).toFloat(), 50f, paint)
-//        canvas.drawBitmap(bird!!, 100f, 100f, null)
-//        canvas.drawBitmap(image, 300f, 300f, null)
-//        //dst.set(300, 100, 700, 900);
-//        dst.set(0, 0, canvas.width, canvas.height)
-//        canvas.drawBitmap(bird!!, null, dst, null)
-//
-//        src.set(0, 0, 75, 75)
-//        dst.set(canvas.width - 150, canvas.height - 150, canvas.width, canvas.height)
-//        canvas.drawBitmap(bird!!, src, dst, null)
+    }
+
+    fun onInput(p: BZVector2f) {
+        gameManager.handleInput(p)
     }
 }

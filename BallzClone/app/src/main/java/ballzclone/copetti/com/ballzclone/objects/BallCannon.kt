@@ -52,6 +52,10 @@ class BallCannon : GameObject(1.0f) {
         return BZVector2f(Math.sin(radiansAngle).toFloat(), - Math.cos(radiansAngle).toFloat()) * GameDefine.ball_velocity
     }
 
+    override fun handleInput(p: BZVector2f) {
+        fire(30.0f, 5)
+    }
+
     override fun draw(canvas: Canvas) {
     }
 

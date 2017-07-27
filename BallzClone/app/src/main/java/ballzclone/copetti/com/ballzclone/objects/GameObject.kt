@@ -28,6 +28,7 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
     fun getRectSize() : BZVector2f = size
 
     open fun  collidedWith(gameObject: GameObject) { }
+    open fun handleInput(p: BZVector2f) { }
 
     fun isDead() = dead
     fun die() { dead = true }

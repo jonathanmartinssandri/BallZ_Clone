@@ -2,13 +2,11 @@ package ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Point
 import ballzclone.copetti.com.ballzclone.BZRect
 import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.GameDefine
 import ballzclone.copetti.com.ballzclone.GameObjectManager
-import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.*
 
 /**
@@ -50,6 +48,10 @@ class GameManager : GameLoop {
     override fun update(delta: Float) {
         gameObjectManager.update(delta)
         ballGrid.advance()
+    }
+
+    fun handleInput(p: BZVector2f) {
+        gameObjectManager.handleInput(p)
     }
 
     override fun draw(canvas: Canvas) {

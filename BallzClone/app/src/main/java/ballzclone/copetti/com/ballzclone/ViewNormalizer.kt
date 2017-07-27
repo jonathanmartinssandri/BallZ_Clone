@@ -9,13 +9,10 @@ import android.graphics.Rect
  */
 class ViewNormalizer {
 
-    private val GAME_SCREEN_WIDTH = 240 * 2
-    private val GAME_SCREEN_HEIGHT = 320 * 2
-
     private var frameBuffer: Bitmap? = null
 
     fun createNewCanvas() : Canvas {
-        frameBuffer = Bitmap.createBitmap(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT, Bitmap.Config.RGB_565)
+        frameBuffer = Bitmap.createBitmap(GameDefine.GAME_SCREEN_WIDTH, GameDefine.GAME_SCREEN_HEIGHT, Bitmap.Config.RGB_565)
         return Canvas(frameBuffer)
     }
 

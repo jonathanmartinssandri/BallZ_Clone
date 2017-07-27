@@ -1,7 +1,9 @@
 package ballzclone.copetti.com.ballzclone
 
-import android.support.v7.app.AppCompatActivity
+import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 
@@ -12,15 +14,43 @@ class GameActivity : FullScreenActivity() {
 
     private var renderView : RenderView? = null
 
+    private var scaleView: Point = Point(0, 0);
+
+    init {
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+
+        if (event == null)
+            return super.onTouchEvent(event)
+
+        Log.d("Touch", "TouchEvent at: ${event.x}, ${event.y}")
+        val transformedTouch = normalizeTouchInput(event)
+        Log.d("Touch", "TouchEvent (Transformed) at: ${transformedTouch.x}, ${transformedTouch.y}")
+        renderView?.onInput(transformedTouch)
+        return false
+    }
+
+    private fun normalizeTouchInput(event: MotionEvent) : BZVector2f {
+
+        val ratio = BZVector2f(event.x / scaleView.x, event.y / scaleView.y)
+        return BZVector2f(ratio.x * GameDefine.GAME_SCREEN_WIDTH, ratio.y * GameDefine.GAME_SCREEN_HEIGHT)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
         gameView = findViewById(R.id.mainGameView)
         gameLayout = findViewById(R.id.gameViewLayout) as ViewGroup
 
-        var renderView: RenderView = RenderView(this)
-        renderView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val display = windowManager.defaultDisplay
+        var displayDimensions = Point()
+        display.getSize(displayDimensions)
+        scaleView = Point(displayDimensions.x, displayDimensions.y)
+        Log.d("Touch", "This is the dimensions: ${displayDimensions.x}, ${displayDimensions.y}")
+
+        renderView = RenderView(this)
+        renderView?.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         gameLayout!!.addView(renderView)
     }
 

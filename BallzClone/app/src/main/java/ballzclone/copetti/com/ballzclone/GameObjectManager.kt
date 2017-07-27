@@ -55,5 +55,10 @@ class GameObjectManager {
     fun <T : GameObject> removeTheDead(iterator: MutableIterator<out T>) {
         for (value in iterator) if (value.isDead()) iterator.remove()
     }
+
+    fun handleInput(p: BZVector2f) {
+        objects.forEach { it.handleInput(p) }
+    }
+
 }
 
