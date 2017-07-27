@@ -54,4 +54,16 @@ class BZVector2f(x: Float, y: Float) {
     override fun toString(): String {
         return "[${x}, ${y}]"
     }
+
+    fun size(): Float {
+        return Math.sqrt(Math.pow(x.toDouble(), 2.0) + Math.pow(y.toDouble(), 2.0)).toFloat()
+    }
+
+    fun  normalize(): BZVector2f {
+        return this / size()
+    }
+
+    private operator fun  div(size: Float): BZVector2f {
+        return BZVector2f(x / size, y / size)
+    }
 }

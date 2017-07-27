@@ -24,10 +24,13 @@ class GameActivity : FullScreenActivity() {
         if (event == null)
             return super.onTouchEvent(event)
 
-        Log.d("Touch", "TouchEvent at: ${event.x}, ${event.y}")
+        //Log.d("Touch", "TouchEvent at: ${event.x}, ${event.y}")
         val transformedTouch = normalizeTouchInput(event)
-        Log.d("Touch", "TouchEvent (Transformed) at: ${transformedTouch.x}, ${transformedTouch.y}")
-        renderView?.onInput(transformedTouch)
+
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            Log.d("Touch", "TouchEvent (Transformed) at: ${transformedTouch.x}, ${transformedTouch.y}")
+            renderView?.onInput(transformedTouch)
+        }
         return false
     }
 

@@ -11,15 +11,28 @@ class BallCannon : GameObject(1.0f) {
 
     private var shooting = false
     private var remainingBalls: Int = 0
-    private var shootingAngle = 0.0f
+    private var shootingTarget = BZVector2f(0f, 0f)
 
     private var countingInterval = .0f
 
-    fun fire(degreeAngle: Float, numberOfBalls: Int) {
+    init {
+        collidable = false
+    }
+
+//    fun fire(degreeAngle: Float, numberOfBalls: Int) {
+//        if (shooting) return
+//
+//        remainingBalls = numberOfBalls
+//        shootingAngle = degreeAngle
+//        shooting = true
+//        countingInterval = GameDefine.cannon_shooting_interval
+//    }
+
+    fun fireAt(target: BZVector2f, numberOfBalls: Int) {
         if (shooting) return
 
         remainingBalls = numberOfBalls
-        shootingAngle = degreeAngle
+        shootingTarget = target
         shooting = true
         countingInterval = GameDefine.cannon_shooting_interval
     }
@@ -44,16 +57,19 @@ class BallCannon : GameObject(1.0f) {
     }
 
     private fun  computeVelocityVector(): BZVector2f {
-        val normalizedAngle = if (shootingAngle > 0.0)
-            90.0 - shootingAngle else shootingAngle * -1 + 90.0
-
-        val radiansAngle = Math.toRadians(normalizedAngle)
-
-        return BZVector2f(Math.sin(radiansAngle).toFloat(), - Math.cos(radiansAngle).toFloat()) * GameDefine.ball_velocity
+        val targetVector = shootingTarget - pos
+//        val radiansAngle = Math.toRadians(shootingAngle.toDouble())
+        return targetVector.normalize() * GameDefine.ball_velocity
+//        return BZVector2f(-Math.cos(radiansAngle).toFloat(), Math.sin(radiansAngle).toFloat()) * GameDefine.ball_velocity
     }
 
     override fun handleInput(p: BZVector2f) {
-        fire(30.0f, 5)
+
+//        val target = p - pos
+
+
+//        fire(80f, 5)
+        fireAt(p, 1)
     }
 
     override fun draw(canvas: Canvas) {

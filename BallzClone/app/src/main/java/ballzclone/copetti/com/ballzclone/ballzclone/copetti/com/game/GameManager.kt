@@ -19,13 +19,6 @@ class GameManager : GameLoop {
     var ballGrid = SquareGrid(Point(7, 10), 5.0f)
 
     init {
-        for (i in 1..10) {
-            gameObjectManager.add(Ball(GameDefine.ball_radius).apply {
-                getPosition().set(20.0f * i, 40.0f * i)
-                getVelocity().set(1f, GameDefine.ball_velocity)
-            })
-        }
-
         val margin = 1f
         val offRectPadding = 25.0f
         val horizontalTop = Wall(BZRect(0f, -offRectPadding, 480f, 0f + margin))
@@ -33,7 +26,7 @@ class GameManager : GameLoop {
         val verticalLeft = Wall(BZRect(0f - offRectPadding, 0f, 0f + margin, 640f))
         val verticalRight = Wall(BZRect(480f - margin, 0f, 480f + offRectPadding, 640f))
 
-        ballCannon.getPosition().set(240.0f, 620.0f)
+        ballCannon.getPosition().set(240.0f, 500.0f)
         gameObjectManager.add(horizontalTop)
         gameObjectManager.add(horizontalBottom)
         gameObjectManager.add(verticalLeft)
@@ -41,8 +34,8 @@ class GameManager : GameLoop {
 
         gameObjectManager.add(ballCannon)
         gameObjectManager.add(ballGrid)
-        gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
-        ballCannon.fire(30.0f, 12)
+        //gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
+        //ballCannon.fire(30.0f, 12)
     }
 
     override fun update(delta: Float) {
