@@ -10,7 +10,7 @@ import ballzclone.copetti.com.ballzclone.BZVector2f
 class GameRound : GameObject(1.0f) {
 
     enum class GameRoundState {
-        DORMANT, RUNNING, DEAD
+        DORMANT, RUNNING, STEPPING, DEAD
     }
 
     var ballCannon = BallCannon()
@@ -31,19 +31,18 @@ class GameRound : GameObject(1.0f) {
 
     override fun update(delta: Float) {
 
-        if (state != GameRoundState.RUNNING)
-            return
+        when(state) {
+            GameRoundState.STEPPING -> {
+                if (ballGrid.state == SquareGrid.SquareGridState.DORMANT)
+                    state = GameRoundState.DORMANT
+            }
+            GameRoundState.RUNNING -> {
+                if (ballCannon.state != BallCannon.BallCannonState.DORMANT)
+                    return
 
-        if (ballCannon.state != BallCannon.BallCannonState.DORMANT)
-            return
-
-        /* Lost the game, blocks reached the minimum height */
-        if (!ballGrid.advance()) {
-            state = GameRoundState.DEAD
-            return
+                state = if (ballGrid.advance()) GameRoundState.STEPPING else GameRoundState.DEAD
+            }
         }
-
-        state = GameRoundState.DORMANT
     }
 
     override fun draw(canvas: Canvas) {

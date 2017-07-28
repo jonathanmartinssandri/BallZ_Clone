@@ -2,7 +2,6 @@ package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
 import android.graphics.Point
-import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.GameDefine
 import java.util.*
 
@@ -22,13 +21,14 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
     val heightSize = gridSize.y
     val grid = Array<Array<Square?>>(gridSize.y, { Array<Square?>(gridSize.x, { null }) })
 
-    var squareGridState = SquareGridState.DORMANT
+    var state = SquareGridState.DORMANT
+        private set
 
     override fun update(delta: Float) {
 
         cleanUpTheDead()
 
-        if (squareGridState == SquareGridState.DORMANT)
+        if (state == SquareGridState.DORMANT)
             return
 
         updateBlocks(delta)
@@ -39,7 +39,7 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
         if (!updateAllBlocksPosition(delta))
             return
 
-        squareGridState = SquareGridState.DORMANT
+        state = SquareGridState.DORMANT
         putRandomBlocksOnTop()
     }
 
@@ -58,11 +58,11 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
         if (anyBlockReachedTheMinimumHeight())
             return false
 
-        if (squareGridState == SquareGridState.ADVANCING)
+        if (state == SquareGridState.ADVANCING)
             return false
 
         advanceAllBlocks()
-        squareGridState = SquareGridState.ADVANCING
+        state = SquareGridState.ADVANCING
         return true
     }
 
