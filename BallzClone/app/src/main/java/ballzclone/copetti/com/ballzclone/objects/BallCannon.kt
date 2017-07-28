@@ -9,38 +9,43 @@ import ballzclone.copetti.com.ballzclone.GameDefine
  */
 class BallCannon : GameObject(1.0f) {
 
-    private var shooting = false
+    enum class BallCannonState {
+        DORMANT, SHOOTING, RELOADING
+    }
+
     private var remainingBalls: Int = 0
     private var shootingTarget = BZVector2f(0f, 0f)
 
     private var countingInterval = .0f
 
+    var state = BallCannonState.DORMANT
+        private set
+
+    private var ballsShot = mutableListOf<Ball>()
+
     init {
         collidable = false
     }
 
-//    fun fire(degreeAngle: Float, numberOfBalls: Int) {
-//        if (shooting) return
-//
-//        remainingBalls = numberOfBalls
-//        shootingAngle = degreeAngle
-//        shooting = true
-//        countingInterval = GameDefine.cannon_shooting_interval
-//    }
-
     fun fireAt(target: BZVector2f, numberOfBalls: Int) {
-        if (shooting) return
+
+        if (state != BallCannonState.DORMANT) return
 
         remainingBalls = numberOfBalls
         shootingTarget = target
-        shooting = true
+        state = BallCannonState.SHOOTING
         countingInterval = GameDefine.cannon_shooting_interval
     }
 
     override fun update(delta: Float) {
-        if (!shooting) return
 
-        if (remainingBalls <= 0) return
+        if (state == BallCannonState.DORMANT) return
+
+        if (state == BallCannonState.RELOADING)
+        {
+            checkIfDoneReloading()
+            return
+        }
 
         countingInterval += delta
 
@@ -50,26 +55,24 @@ class BallCannon : GameObject(1.0f) {
         val velVector : BZVector2f = computeVelocityVector()
 
         val newBall = Ball(GameDefine.ball_radius).apply { getVelocity().set(velVector.x, velVector.y); getPosition().set(this@BallCannon.pos.x, this@BallCannon.pos.y) }
+        ballsShot.add(newBall)
         parent?.add(newBall)
 
         countingInterval = 0.0f
-        if (--remainingBalls <= 0) shooting = false
+        if (--remainingBalls <= 0) state = BallCannonState.RELOADING
+    }
+
+    private fun checkIfDoneReloading() {
+        if (ballsShot.any{ !it.isDead() })
+            return
+
+        ballsShot.clear()
+        state = BallCannonState.DORMANT
     }
 
     private fun  computeVelocityVector(): BZVector2f {
         val targetVector = shootingTarget - pos
-//        val radiansAngle = Math.toRadians(shootingAngle.toDouble())
         return targetVector.normalize() * GameDefine.ball_velocity
-//        return BZVector2f(-Math.cos(radiansAngle).toFloat(), Math.sin(radiansAngle).toFloat()) * GameDefine.ball_velocity
-    }
-
-    override fun handleInput(p: BZVector2f) {
-
-//        val target = p - pos
-
-
-//        fire(80f, 5)
-        fireAt(p, 1)
     }
 
     override fun draw(canvas: Canvas) {
