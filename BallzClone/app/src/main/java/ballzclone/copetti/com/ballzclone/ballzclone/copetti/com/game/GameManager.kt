@@ -15,8 +15,7 @@ import ballzclone.copetti.com.ballzclone.objects.*
 class GameManager : GameLoop {
 
     var gameObjectManager = GameObjectManager()
-    var ballCannon = BallCannon()
-    var ballGrid = SquareGrid(Point(7, 10), 5.0f)
+    var gameRound : GameRound
 
     init {
         val margin = 1f
@@ -26,21 +25,18 @@ class GameManager : GameLoop {
         val verticalLeft = Wall(BZRect(0f - offRectPadding, 0f, 0f + margin, 640f))
         val verticalRight = Wall(BZRect(480f - margin, 0f, 480f + offRectPadding, 640f))
 
-        ballCannon.getPosition().set(240.0f, 500.0f)
+        gameRound = GameRound()
+        gameObjectManager.add(gameRound)
         gameObjectManager.add(horizontalTop)
         gameObjectManager.add(horizontalBottom)
         gameObjectManager.add(verticalLeft)
         gameObjectManager.add(verticalRight)
 
-        gameObjectManager.add(ballCannon)
-        gameObjectManager.add(ballGrid)
-        //gameObjectManager.add(BallPowerUp().apply { getPosition().set(240.0f, 550.0f) })
-        //ballCannon.fire(30.0f, 12)
-    }
+        gameRound.initialize()
+   }
 
     override fun update(delta: Float) {
         gameObjectManager.update(delta)
-        ballGrid.advance()
     }
 
     fun handleInput(p: BZVector2f) {
