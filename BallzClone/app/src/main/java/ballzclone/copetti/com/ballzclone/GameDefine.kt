@@ -15,6 +15,6 @@ object GameDefine {
     val ball_radius: Float = 15.0f
     val ball_powerup_radius: Float = 25.0f
 
-    val cannon_shooting_interval = 0.5f
+    val cannon_shooting_interval = 0.1f
 
 }

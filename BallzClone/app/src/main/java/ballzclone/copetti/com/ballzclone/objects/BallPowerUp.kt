@@ -15,6 +15,10 @@ class BallPowerUp : GameObject(GameDefine.ball_powerup_radius) {
 
     var elapsedTime: Double = 0.0
 
+    init {
+        collidable = false
+    }
+
     override fun update(delta: Float) {
         elapsedTime += delta
     }
@@ -42,5 +46,13 @@ class BallPowerUp : GameObject(GameDefine.ball_powerup_radius) {
     private fun drawTo(canvas: Canvas, radius: Float, paint: Paint) {
         val center = getBZRect().centerPoint()
         canvas.drawCircle(center.x, center.y, GameDefine.ball_powerup_radius * radius, paint)
+    }
+
+    override fun collidedWith(gameObject: GameObject) {
+        if (!(gameObject is Ball))
+                return
+
+        gameObject.cannonParent.addTotalBalls(+1)
+        die()
     }
 }

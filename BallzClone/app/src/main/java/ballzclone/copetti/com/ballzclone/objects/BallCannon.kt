@@ -13,7 +13,8 @@ class BallCannon : GameObject(1.0f) {
         DORMANT, SHOOTING, RELOADING
     }
 
-    private var remainingBalls: Int = 0
+    var totalBalls: Int = 1
+    private var remainingBalls: Int = totalBalls
     private var shootingTarget = BZVector2f(0f, 0f)
 
     private var countingInterval = .0f
@@ -27,11 +28,15 @@ class BallCannon : GameObject(1.0f) {
         collidable = false
     }
 
-    fun fireAt(target: BZVector2f, numberOfBalls: Int) {
+    fun addTotalBalls(n: Int) {
+        totalBalls += n
+    }
+
+    fun fireAt(target: BZVector2f) {
 
         if (state != BallCannonState.DORMANT) return
 
-        remainingBalls = numberOfBalls
+        remainingBalls = totalBalls
         shootingTarget = target
         state = BallCannonState.SHOOTING
         countingInterval = GameDefine.cannon_shooting_interval
@@ -54,7 +59,7 @@ class BallCannon : GameObject(1.0f) {
 
         val velVector : BZVector2f = computeVelocityVector()
 
-        val newBall = Ball(GameDefine.ball_radius).apply { getVelocity().set(velVector.x, velVector.y); getPosition().set(this@BallCannon.pos.x, this@BallCannon.pos.y) }
+        val newBall = Ball(this, GameDefine.ball_radius).apply { getVelocity().set(velVector.x, velVector.y); getPosition().set(this@BallCannon.pos.x, this@BallCannon.pos.y) }
         ballsShot.add(newBall)
         parent?.add(newBall)
 
