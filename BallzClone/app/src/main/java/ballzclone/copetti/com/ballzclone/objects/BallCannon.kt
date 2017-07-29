@@ -26,8 +26,22 @@ class BallCannon : GameObject(1.0f) {
 
     private var ballsShot = mutableListOf<Ball>()
 
+    /*
+        There should be at least one main ball to actually
+        represent where the balls will come from
+     */
+    private var mainBall : Ball
+
     init {
         collidable = false
+        mainBall = Ball(this, 1.0f)
+    }
+
+
+    fun initialize() {
+        mainBall = Ball(this, GameDefine.ball_radius)
+        mainBall.getPosition().set(pos.x, pos.y)
+        parent?.add(mainBall)
     }
 
     fun addTotalBalls(n: Int) {
@@ -94,7 +108,12 @@ class BallCannon : GameObject(1.0f) {
     override fun collidedWith(gameObject: GameObject) {
     }
 
-    fun  notifyDeadEvent(pos: BZVector2f) {
-        nextCannonPosition = pos.x
+    fun  notifyDeadEvent(ballPosition: BZVector2f) {
+
+        if (nextCannonPosition != null)
+            return
+
+        nextCannonPosition = ballPosition.x
+        mainBall.getPosition().set(ballPosition.x, getPosition().y)
     }
 }

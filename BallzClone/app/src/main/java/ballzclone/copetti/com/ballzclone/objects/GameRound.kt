@@ -24,6 +24,7 @@ class GameRound : GameObject(1.0f) {
 
     fun initialize() {
         parent?.add(ballCannon)
+        ballCannon.initialize()
         parent?.add(ballGrid)
 
         ballGrid.advance()
