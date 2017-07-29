@@ -86,7 +86,11 @@ class BallCannon : GameObject(1.0f) {
         parent?.add(newBall)
 
         countingInterval = 0.0f
-        if (--remainingBalls <= 0) state = BallCannonState.RELOADING
+        if (--remainingBalls <= 0) {
+            state = BallCannonState.RELOADING
+            if (nextCannonPosition == null)
+                mainBall.visible = false
+        }
     }
 
     private fun checkIfDoneReloading() {
@@ -115,5 +119,6 @@ class BallCannon : GameObject(1.0f) {
 
         nextCannonPosition = ballPosition.x
         mainBall.getPosition().set(ballPosition.x, getPosition().y)
+        mainBall.visible = true
     }
 }

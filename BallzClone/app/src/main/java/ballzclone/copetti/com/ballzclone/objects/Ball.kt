@@ -16,6 +16,9 @@ class Ball(cannonParent: BallCannon, radius: Float) : GameObject(radius) {
 
     override fun draw(canvas: Canvas) {
 
+        if (!visible)
+            return
+
         var paint = Paint().apply {
             color = Color.rgb(255, 0, 0)
         }
