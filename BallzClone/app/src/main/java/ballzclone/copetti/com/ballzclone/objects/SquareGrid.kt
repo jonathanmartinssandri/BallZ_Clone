@@ -11,6 +11,8 @@ import java.util.*
  */
 class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : GameObject(1.0f) {
 
+    val ballPowerUpOffset = 15.0f
+
     enum class SquareGridState
     {
         ADVANCING, DORMANT
@@ -38,7 +40,7 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
 
     private fun updateBlocks(delta: Float) {
 
-        if (!updateAllBlocksPosition(delta))
+        if (!doneUpdatingBlocksPosition(delta))
             return
 
         state = SquareGridState.DORMANT
@@ -80,9 +82,9 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
             }
     }
 
-    private fun updateAllBlocksPosition(delta: Float) : Boolean {
+    private fun doneUpdatingBlocksPosition(delta: Float) : Boolean {
 
-        var finished: Boolean? = null
+        var finished = true
 
         for (i in 0 until grid.size)
             for (j in 0 until grid[0].size) {
@@ -90,7 +92,7 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
                 if (square == null)
                     continue
 
-                if (square.getPosition().y >= getGridPosition(i, j).y) {
+                if (square.getPosition().y >= getGridPosition(square, i, j).y) {
                     finished = true
                     continue
                 }
@@ -100,7 +102,7 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
                 square.getPosition().set(newPosition.x, newPosition.y)
         }
 
-        return if (finished == null) return true else finished
+        return finished
     }
 
     private fun anyBlockReachedTheMinimumHeight() : Boolean {
@@ -122,26 +124,36 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
         }
         */
         for (j in 0 until grid[0].size) {
-            createSquareAt(0, j)
+            createElementInGridAt(0, j)
         }
     }
 
-    fun createSquareAt(x: Int, y: Int) {
-        val square = Square(50.0f, 10)
-        grid[x][y] = square
-        val squareInGridPosition = getGridPosition(x, y)
-        square.getPosition().set(squareInGridPosition.x, squareInGridPosition.y)
-        parent?.add(square)
+    fun createElementInGridAt(i: Int, j: Int) {
+        val element = getNewGridElement(i, j)
+        grid[i][j] = element
+        val gridPosition = getGridPosition(element, i, j)
+        element.getPosition().set(gridPosition.x, gridPosition.y)
+        parent?.add(element)
+    }
+
+    fun getNewGridElement(i: Int, j: Int) : GameObject {
+        val randomValue = Random().nextInt(20)
+        return if (randomValue < 19) Square(50.0f, 10) else BallPowerUp()
+    }
+
+    fun getGridPosition(element: GameObject, i: Int, j: Int): BZVector2f {
+        val pos = getGridPosition(i, j)
+        val offset = if (element is BallPowerUp) ballPowerUpOffset else 0f
+        return BZVector2f(pos.x + offset, pos.y + offset)
     }
 
     fun getGridPosition(i: Int, j: Int): BZVector2f {
         val marginOffset = BZVector2f(margin * (j + 0.5f), margin * (i + 0.5f))
-        val gridDistance = BZVector2f((j * width).toFloat(), (i * height).toFloat())
+        val gridDistance = BZVector2f((j * width), (i * height))
         return marginOffset + gridDistance
     }
 
-    override fun draw(canvas: Canvas) {
-    }
 
+    override fun draw(canvas: Canvas) = Unit
     override fun collidedWith(gameObject: GameObject) = Unit
 }
