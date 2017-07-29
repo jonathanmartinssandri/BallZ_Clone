@@ -2,13 +2,14 @@ package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
 import android.graphics.Point
+import ballzclone.copetti.com.ballzclone.BZVector2f
 import ballzclone.copetti.com.ballzclone.GameDefine
 import java.util.*
 
 /**
  * Created by Pichau on 08/07/2017.
  */
-class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
+class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : GameObject(1.0f) {
 
     enum class SquareGridState
     {
@@ -17,9 +18,10 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
 
     val margin: Float = margin
 
-    val widthSize = gridSize.x
-    val heightSize = gridSize.y
-    val grid = Array<Array<Square?>>(gridSize.y, { Array<Square?>(gridSize.x, { null }) })
+    val width = (width - gridSize.x * margin) / gridSize.x
+    val height = (height - gridSize.y * margin) / gridSize.y
+    val gridSize = gridSize
+    val grid = Array<Array<GameObject?>>(gridSize.y, { Array<GameObject?>(gridSize.x, { null }) })
 
     var state = SquareGridState.DORMANT
         private set
@@ -68,12 +70,12 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
 
     private fun advanceAllBlocks() {
 
-        for (y in grid[0].size - 2 downTo 0)
-            for (x in grid.size - 2 downTo 0) {
-                val currentSquare = grid[x][y]
+        for (i in grid.size - 2 downTo 0)
+            for (j in 0 until grid[0].size) {
+                val currentSquare = grid[i][j]
                 if (currentSquare != null) {
-                    grid[x][y + 1] = currentSquare
-                    grid[x][y] = null
+                    grid[i + 1][j] = currentSquare
+                    grid[i][j] = null
                 }
             }
     }
@@ -82,13 +84,13 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
 
         var finished: Boolean? = null
 
-        for (x in 0 until grid.size)
-            for (y in 0 until grid[0].size) {
-                val square = grid[x][y]
+        for (i in 0 until grid.size)
+            for (j in 0 until grid[0].size) {
+                val square = grid[i][j]
                 if (square == null)
                     continue
 
-                if (square.getPosition().y >= y * (margin + square.getRectSize().y)) {
+                if (square.getPosition().y >= getGridPosition(i, j).y) {
                     finished = true
                     continue
                 }
@@ -103,32 +105,43 @@ class SquareGrid(gridSize: Point, margin: Float) : GameObject(1.0f) {
 
     private fun anyBlockReachedTheMinimumHeight() : Boolean {
 
-        for (line in grid) {
-            if (line[line.size - 1] != null)
+        for (x in 0 until gridSize.x) {
+            if (grid[gridSize.y - 1][x] != null)
                 return true
         }
         return false
     }
 
     private fun putRandomBlocksOnTop() {
-
+        /*
         var numberOfBlocks = (Math.random() * grid[0].size).toInt()
-        val list = IntRange(0, grid[0].size).toList().toMutableList()
+        val list = IntRange(0, grid[0].size - 1).toList().toMutableList()
         Collections.shuffle(list)
-
         for (i in list.take(numberOfBlocks)) {
             createSquareAt(i, 0)
+        }
+        */
+        for (j in 0 until grid[0].size) {
+            createSquareAt(0, j)
         }
     }
 
     fun createSquareAt(x: Int, y: Int) {
         val square = Square(50.0f, 10)
         grid[x][y] = square
-        square.getPosition().set(x * (margin + square.getRectSize().x), y * (margin + square.getRectSize().y))
+        val squareInGridPosition = getGridPosition(x, y)
+        square.getPosition().set(squareInGridPosition.x, squareInGridPosition.y)
         parent?.add(square)
+    }
+
+    fun getGridPosition(i: Int, j: Int): BZVector2f {
+        val marginOffset = BZVector2f(margin * (j + 0.5f), margin * (i + 0.5f))
+        val gridDistance = BZVector2f((j * width).toFloat(), (i * height).toFloat())
+        return marginOffset + gridDistance
     }
 
     override fun draw(canvas: Canvas) {
     }
+
     override fun collidedWith(gameObject: GameObject) = Unit
 }
