@@ -54,6 +54,6 @@ class GameRound : GameObject(1.0f) {
             return
 
         state = GameRoundState.RUNNING
-        ballCannon.fireAt(p, 1)
+        ballCannon.fireAt(p)
     }
 }

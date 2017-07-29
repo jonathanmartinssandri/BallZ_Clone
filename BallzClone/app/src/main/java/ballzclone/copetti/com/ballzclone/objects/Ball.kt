@@ -8,8 +8,11 @@ import android.util.Log
 /**
  * Created by Pichau on 04/07/2017.
  */
-class Ball(radius: Float) : GameObject(radius) {
+class Ball(cannonParent: BallCannon, radius: Float) : GameObject(radius) {
     var  moving: Boolean = true
+
+    var cannonParent = cannonParent
+        private set
 
     override fun draw(canvas: Canvas) {
 

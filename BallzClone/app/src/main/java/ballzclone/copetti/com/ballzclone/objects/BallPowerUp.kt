@@ -49,6 +49,10 @@ class BallPowerUp : GameObject(GameDefine.ball_powerup_radius) {
     }
 
     override fun collidedWith(gameObject: GameObject) {
+        if (!(gameObject is Ball))
+                return
+
+        gameObject.cannonParent.addTotalBalls(+1)
         die()
     }
 }
