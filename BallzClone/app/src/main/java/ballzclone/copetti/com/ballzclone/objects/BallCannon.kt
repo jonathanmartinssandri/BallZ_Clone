@@ -13,7 +13,7 @@ class BallCannon : GameObject(1.0f) {
         DORMANT, SHOOTING, RELOADING
     }
 
-    private var totalBalls: Int = 1
+    var totalBalls: Int = 1
     private var remainingBalls: Int = totalBalls
     private var shootingTarget = BZVector2f(0f, 0f)
 

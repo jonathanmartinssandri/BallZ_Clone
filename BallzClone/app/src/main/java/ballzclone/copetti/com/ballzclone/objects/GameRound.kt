@@ -40,6 +40,7 @@ class GameRound : GameObject(1.0f) {
                 if (ballCannon.state != BallCannon.BallCannonState.DORMANT)
                     return
 
+                ballGrid.squareValue = ballCannon.totalBalls
                 state = if (ballGrid.advance()) GameRoundState.STEPPING else GameRoundState.DEAD
             }
         }

@@ -25,6 +25,8 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
     val gridSize = gridSize
     val grid = Array<Array<GameObject?>>(gridSize.y, { Array<GameObject?>(gridSize.x, { null }) })
 
+    var squareValue : Int = 1
+
     var state = SquareGridState.DORMANT
         private set
 
@@ -138,7 +140,14 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
 
     fun getNewGridElement(i: Int, j: Int) : GameObject {
         val randomValue = Random().nextInt(20)
-        return if (randomValue < 19) Square(50.0f, 10) else BallPowerUp()
+
+        return when (randomValue < 18) {
+             true -> {
+                val squareScore = Random().nextInt(squareValue) + squareValue
+                Square(50.0f, squareScore)
+            }
+            else -> BallPowerUp()
+        }
     }
 
     fun getGridPosition(element: GameObject, i: Int, j: Int): BZVector2f {
