@@ -22,6 +22,8 @@ class BallCannon : GameObject(1.0f) {
     var state = BallCannonState.DORMANT
         private set
 
+    var nextCannonPosition : Float? = null
+
     private var ballsShot = mutableListOf<Ball>()
 
     init {
@@ -35,6 +37,12 @@ class BallCannon : GameObject(1.0f) {
     fun fireAt(target: BZVector2f) {
 
         if (state != BallCannonState.DORMANT) return
+
+        val newCannonPos = nextCannonPosition
+        if (newCannonPos != null) {
+            pos = BZVector2f(newCannonPos, pos.y)
+            nextCannonPosition = null
+        }
 
         remainingBalls = totalBalls
         shootingTarget = target
@@ -84,5 +92,9 @@ class BallCannon : GameObject(1.0f) {
     }
 
     override fun collidedWith(gameObject: GameObject) {
+    }
+
+    fun  notifyDeadEvent(pos: BZVector2f) {
+        nextCannonPosition = pos.x
     }
 }

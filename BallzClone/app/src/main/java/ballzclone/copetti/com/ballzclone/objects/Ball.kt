@@ -33,4 +33,8 @@ class Ball(cannonParent: BallCannon, radius: Float) : GameObject(radius) {
     override fun collidedWith(gameObject: GameObject) {
     }
 
+    override fun onDeath() {
+        cannonParent.notifyDeadEvent(pos)
+    }
+
 }

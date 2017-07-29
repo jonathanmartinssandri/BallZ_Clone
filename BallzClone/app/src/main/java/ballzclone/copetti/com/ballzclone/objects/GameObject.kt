@@ -29,7 +29,12 @@ abstract class GameObject(rect: BZRect) : DrawableToCanvas, UpdatableFromDeltaTi
 
     open fun  collidedWith(gameObject: GameObject) { }
     open fun handleInput(p: BZVector2f) { }
+    open fun onDeath() { }
 
     fun isDead() = dead
-    fun die() { dead = true }
+
+    fun die() {
+        dead = true
+        onDeath()
+    }
 }
