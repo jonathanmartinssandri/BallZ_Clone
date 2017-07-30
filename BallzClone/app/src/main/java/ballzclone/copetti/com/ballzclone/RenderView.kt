@@ -10,7 +10,7 @@ import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.GameManager
  * Created by LuisCopetti on 29/06/2017.
  */
 
-class RenderView(context: Context) : View(context) {
+class RenderView(context: GameActivity) : View(context) {
 
     private val FRAME_RATE = 60.0f
 
@@ -19,8 +19,18 @@ class RenderView(context: Context) : View(context) {
     private var loopManager = GameLoopManager(gameManager, { System.nanoTime() / 1000000000.0f }, FRAME_RATE)
 
 
+    init {
+        gameManager.listener = context
+    }
+
+    private var  stopDrawing: Boolean = false
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        
+        if (stopDrawing)
+            return
+
         var normalizedCanvas = viewManager.createNewCanvas()
         loopManager.update(normalizedCanvas)
         viewManager.flipTo(canvas)
@@ -29,5 +39,9 @@ class RenderView(context: Context) : View(context) {
 
     fun onInput(p: BZVector2f) {
         gameManager.handleInput(p)
+    }
+
+    fun stop() {
+        stopDrawing = true
     }
 }

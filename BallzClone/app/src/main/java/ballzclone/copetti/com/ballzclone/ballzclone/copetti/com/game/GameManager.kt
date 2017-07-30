@@ -17,6 +17,9 @@ class GameManager : GameLoop {
     var gameObjectManager = GameObjectManager()
     var gameRound : GameRound
 
+    var lastScore: Int = 0
+    var listener: GameEventListener? = null
+
     init {
         val margin = 1f
         val offRectPadding = 100.0f
@@ -37,6 +40,14 @@ class GameManager : GameLoop {
 
     override fun update(delta: Float) {
         gameObjectManager.update(delta)
+
+        if (gameRound.state == GameRound.GameRoundState.DEAD)
+            listener?.handleEndGameEvent()
+
+        if (gameRound.ballCannon.totalBalls != lastScore) {
+            lastScore = gameRound.ballCannon.totalBalls
+            listener?.handleUpdateScoreEvent(lastScore)
+        }
     }
 
     fun handleInput(p: BZVector2f) {

@@ -1,14 +1,16 @@
 package ballzclone.copetti.com.ballzclone
 
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import ballzclone.copetti.com.ballzclone.ballzclone.copetti.com.game.GameEventListener
 
-class GameActivity : FullScreenActivity() {
-
+class GameActivity : FullScreenActivity(), GameEventListener {
     private var gameView: View? = null
     private var gameLayout: ViewGroup? = null
 
@@ -16,8 +18,8 @@ class GameActivity : FullScreenActivity() {
 
     private var scaleView: Point = Point(0, 0);
 
-    init {
-    }
+    private var scoreView: TextView? = null
+    private var bestScoreView: TextView? = null
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
@@ -57,10 +59,26 @@ class GameActivity : FullScreenActivity() {
         renderView = RenderView(this)
         renderView?.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         gameLayout!!.addView(renderView)
+
+        scoreView = findViewById(R.id.txtCurrentScore) as TextView
+        bestScoreView = findViewById(R.id.txtBestScore) as TextView
     }
 
     fun btnPauseGameClicked(v : View)
     {
 
+    }
+
+    override fun handleEndGameEvent() {
+        renderView?.stop()
+        val intent = Intent(this, MainMenuActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun handleUpdateScoreEvent(newScore: Int) {
+        scoreView?.text = newScore.toString()
+        if (newScore > bestScoreView?.text.toString().toInt())
+            bestScoreView?.text = newScore.toString()
     }
 }

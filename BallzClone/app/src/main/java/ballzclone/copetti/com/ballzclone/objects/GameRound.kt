@@ -15,7 +15,7 @@ class GameRound : GameObject(1.0f) {
     }
 
     var ballCannon = BallCannon()
-    var ballGrid = SquareGrid(480, 520, Point(8, 9), 8.0f)
+    var ballGrid = SquareGrid(480, 480, Point(8, 9), 8.0f)
     var state = GameRoundState.DORMANT
 
 

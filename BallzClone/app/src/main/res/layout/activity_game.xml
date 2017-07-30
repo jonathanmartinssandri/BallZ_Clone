@@ -30,6 +30,7 @@
                 android:textColor="@color/colorMainText"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/txtCurrentScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -62,6 +63,7 @@
                 android:textColor="@color/colorMainText"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/txtBestScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
