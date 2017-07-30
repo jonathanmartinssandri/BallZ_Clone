@@ -24,8 +24,10 @@ class GameActivity : FullScreenActivity() {
         if (event == null)
             return super.onTouchEvent(event)
 
-        //Log.d("Touch", "TouchEvent at: ${event.x}, ${event.y}")
-        val transformedTouch = normalizeTouchInput(event)
+        val gameViewImmutable = gameView
+        val offset: Float = if (gameViewImmutable != null) gameViewImmutable.top.toFloat() else 0f
+
+        val transformedTouch = normalizeTouchInput(event, offset)
 
         if (event.action == MotionEvent.ACTION_DOWN) {
             Log.d("Touch", "TouchEvent (Transformed) at: ${transformedTouch.x}, ${transformedTouch.y}")
@@ -34,9 +36,9 @@ class GameActivity : FullScreenActivity() {
         return false
     }
 
-    private fun normalizeTouchInput(event: MotionEvent) : BZVector2f {
+    private fun normalizeTouchInput(event: MotionEvent, offset: Float) : BZVector2f {
 
-        val ratio = BZVector2f(event.x / scaleView.x, event.y / scaleView.y)
+        val ratio = BZVector2f(event.x / scaleView.x, (event.y - offset) / scaleView.y)
         return BZVector2f(ratio.x * GameDefine.GAME_SCREEN_WIDTH, ratio.y * GameDefine.GAME_SCREEN_HEIGHT)
     }
 
