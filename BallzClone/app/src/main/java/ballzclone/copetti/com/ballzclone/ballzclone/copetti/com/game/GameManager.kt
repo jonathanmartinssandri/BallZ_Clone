@@ -21,7 +21,7 @@ class GameManager : GameLoop {
         val margin = 1f
         val offRectPadding = 100.0f
         val horizontalTop = Wall(BZRect(0f, -offRectPadding, 480f, 0f + margin))
-        val horizontalBottom = Wall(BZRect(0f, 640f - margin, 480f, 640f + offRectPadding), deadly = true)
+        val horizontalBottom = Wall(BZRect(0f, 520f, 480f, 640f + offRectPadding), deadly = true)
         val verticalLeft = Wall(BZRect(0f - offRectPadding, 0f, 0f + margin, 640f))
         val verticalRight = Wall(BZRect(480f - margin, 0f, 480f + offRectPadding, 640f))
 

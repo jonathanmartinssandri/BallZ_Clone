@@ -1,6 +1,7 @@
 package ballzclone.copetti.com.ballzclone.objects
 
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.Point
 import ballzclone.copetti.com.ballzclone.BZVector2f
 
@@ -14,7 +15,7 @@ class GameRound : GameObject(1.0f) {
     }
 
     var ballCannon = BallCannon()
-    var ballGrid = SquareGrid(480, 550, Point(8, 10), 10.0f)
+    var ballGrid = SquareGrid(480, 550, Point(8, 9), 10.0f)
     var state = GameRoundState.DORMANT
 
 
@@ -48,6 +49,7 @@ class GameRound : GameObject(1.0f) {
     }
 
     override fun draw(canvas: Canvas) {
+        canvas.drawLine(0f, 520f, 480f, 520f, Paint().apply { strokeWidth = 4.0f })
     }
 
     override fun handleInput(p: BZVector2f) {
