@@ -16,13 +16,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="btnPauseGameClicked"
-            android:text="Pause">
-        </Button>
+            android:text="Quit"></Button>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SCORE"
+                android:textColor="@color/colorMainText"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="25dp"
+                android:textColor="@color/colorMainText"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+        </View>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:paddingRight="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,30 +64,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="494"
+                android:text="0"
                 android:textSize="25dp"
                 android:textColor="@color/colorMainText"/>
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="360"
-            android:textColor="@color/colorMainText"
-            android:textSize="35dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="65"
-            android:textSize="20dp"
-            android:textColor="@color/colorMainText"/>
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/bitcoin_icon"/>
 
     </LinearLayout>
 
@@ -72,6 +84,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#444444"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
+
 </LinearLayout>
