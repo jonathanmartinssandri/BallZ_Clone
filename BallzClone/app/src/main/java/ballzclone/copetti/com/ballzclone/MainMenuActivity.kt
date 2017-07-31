@@ -25,8 +25,8 @@ class MainMenuActivity : FullScreenActivity() {
         startActivity(intent)
     }
 
-    fun btnOpenHighestScoresClicked(v: View) {
-        val intent = Intent(this, HighestScoreActivity::class.java)
+    fun btnAboutClicked(v: View) {
+        val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
     }
 

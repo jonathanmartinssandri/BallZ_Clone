@@ -5,4 +5,5 @@
     <string name="buttonExit">I Quit!</string>
     <string name="highScoreTitle">Hall of Fame</string>
     <string name="BestLabelGameView">BEST</string>
+    <string name="github_repo"><a href="https://github.com/lhcopetti/BallZ_Clone">Github Repository</a></string>
 </resources>

@@ -64,13 +64,17 @@ class GameActivity : FullScreenActivity(), GameEventListener {
         bestScoreView = findViewById(R.id.txtBestScore) as TextView
     }
 
-    fun btnPauseGameClicked(v : View)
+    fun btnQuitGameClicked(v : View)
     {
-
+        goToMenu()
     }
 
     override fun handleEndGameEvent() {
         renderView?.stop()
+        goToMenu()
+    }
+
+    fun goToMenu() {
         val intent = Intent(this, MainMenuActivity::class.java)
         startActivity(intent)
         finish()

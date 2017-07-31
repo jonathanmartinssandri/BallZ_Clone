@@ -23,7 +23,8 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/info_icon"/>
+            android:src="@drawable/info_icon"
+            android:onClick="btnAboutClicked"/>
 
         <LinearLayout
             android:layout_width="match_parent"
