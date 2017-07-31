@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import ballzclone.copetti.com.ballzclone.collision.CollisionManager
 import ballzclone.copetti.com.ballzclone.objects.Ball
 import ballzclone.copetti.com.ballzclone.objects.GameObject
-import java.util.function.Predicate
 
 /**
  * Created by Pichau on 08/07/2017.

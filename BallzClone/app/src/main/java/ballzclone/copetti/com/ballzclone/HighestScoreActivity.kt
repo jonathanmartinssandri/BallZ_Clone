@@ -1,6 +1,5 @@
 package ballzclone.copetti.com.ballzclone
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 class HighestScoreActivity : FullScreenActivity() {

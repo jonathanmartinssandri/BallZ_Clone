@@ -1,11 +1,11 @@
 package ballzclone.copetti.com.ballzclone
 
-import android.support.v7.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : Activity() {
 
     private var gitHubRepoLink : TextView? = null
 

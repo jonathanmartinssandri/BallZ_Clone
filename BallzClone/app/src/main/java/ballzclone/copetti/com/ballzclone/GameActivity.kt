@@ -62,6 +62,8 @@ class GameActivity : FullScreenActivity(), GameEventListener {
 
         scoreView = findViewById(R.id.txtCurrentScore) as TextView
         bestScoreView = findViewById(R.id.txtBestScore) as TextView
+
+        bestScoreView!!.text = HighestPersonalScore().load(this).toString()
     }
 
     fun btnQuitGameClicked(v : View)
@@ -82,7 +84,9 @@ class GameActivity : FullScreenActivity(), GameEventListener {
 
     override fun handleUpdateScoreEvent(newScore: Int) {
         scoreView?.text = newScore.toString()
-        if (newScore > bestScoreView?.text.toString().toInt())
+        if (newScore > bestScoreView?.text.toString().toInt()) {
             bestScoreView?.text = newScore.toString()
+            HighestPersonalScore().save(this, newScore)
+        }
     }
 }
