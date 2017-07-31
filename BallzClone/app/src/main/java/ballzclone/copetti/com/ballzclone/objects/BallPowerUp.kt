@@ -20,7 +20,7 @@ class BallPowerUp : GameObject(GameDefine.ball_powerup_radius) {
     }
 
     override fun update(delta: Float) {
-        elapsedTime += delta
+        elapsedTime += delta * 3
     }
 
     override fun draw(canvas: Canvas) {
@@ -39,7 +39,7 @@ class BallPowerUp : GameObject(GameDefine.ball_powerup_radius) {
 
     private fun createDefaultPaint() : Paint {
         return Paint().apply {
-            color = Color.rgb(255, 255, 255)
+            color = Color.rgb(180, 180, 180)
         }
     }
 
