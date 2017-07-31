@@ -14,9 +14,14 @@ class MainMenuActivity : FullScreenActivity() {
     private var currentScore: TextView? = null
     private var currentCoinValue: TextView? = null
 
+    private var personalBest: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
+
+        personalBest = findViewById(R.id.txtPersonalBest) as TextView
+        personalBest!!.text = "${HighestPersonalScore().load(this)}"
     }
 
     fun btnOpenGameClicked(v: View) {
