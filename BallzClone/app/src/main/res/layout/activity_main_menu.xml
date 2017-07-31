@@ -30,19 +30,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="right">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="999"
-                android:textColor="@color/colorMainText"
-                android:gravity="center"
-                android:textSize="35dp"/>
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/bitcoin_icon"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -71,17 +58,10 @@
             android:onClick="btnOpenGameClicked"
             />
         <Button
-            android:id="@+id/buttonHighScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonHighScore"
-            android:onClick="btnOpenHighestScoresClicked"
-            />
-        <Button
             android:id="@+id/buttonExit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buttonExit"
+            android:text="Enough... for today, right?"
             android:onClick="exitGame"
             />
     </LinearLayout>
