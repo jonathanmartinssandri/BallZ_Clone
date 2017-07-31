@@ -11,7 +11,7 @@ import java.util.*
  */
 class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : GameObject(1.0f) {
 
-    val ballPowerUpOffset = 15.0f
+    val ballPowerUpOffset = 12.0f
 
     enum class SquareGridState
     {
@@ -117,17 +117,15 @@ class SquareGrid(width: Int, height: Int, gridSize: Point, margin: Float) : Game
     }
 
     private fun putRandomBlocksOnTop() {
-        /*
-        var numberOfBlocks = (Math.random() * grid[0].size).toInt()
+        var numberOfBlocks = (Math.random() * grid[0].size).toInt() + grid[0].size / 2
         val list = IntRange(0, grid[0].size - 1).toList().toMutableList()
         Collections.shuffle(list)
         for (i in list.take(numberOfBlocks)) {
-            createSquareAt(i, 0)
+            createElementInGridAt(0, i)
         }
-        */
-        for (j in 0 until grid[0].size) {
-            createElementInGridAt(0, j)
-        }
+//        for (j in 0 until grid[0].size) {
+//            createElementInGridAt(0, j)
+//        }
     }
 
     fun createElementInGridAt(i: Int, j: Int) {
