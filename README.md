@@ -20,37 +20,5 @@ Diferentemente do que acontece em 'Breakout' o contato com as bolas não é cond
 
 Um dos únicos itens que podem ser adquiridos durante o jogo, são bolas adicionais. Esse é um item cumulativo extremamente importante, pois conforme o valor das caixas aumenta é necessário um maior "poder de fogo" para destruí-las (mais colisões).
 
-## Telas:
-
-Nem todas as telas serão implementadas nesse projeto. Abaixo, têm-se a lista de telas agrupadas por responsabilidade. Ao lado de seus nomes, o 'X' significa que não terá implementação e o '#' indica que a funcionalidade será implementada
-
-### # Splash Screen
-
-Tela de apresentação e carregamento de Assets do Jogo. A intenção é utilizar apenas primitivas na construção desse jogo, portanto, talvez seja apenas um tela de transição suave.
-
-### # Main Screen
-
-Essa é a tela de abertura do jogo. Permite acesso a todas as outras telas dispovível para o usuário:
-
-- Botão de Info
-- Número de moedas
-- Título
-- Botão 'Play'
-- Botão 'Rate'
-- Música (Ligada/Desligada)
-- Maiores pontuadores
-- Loja
-- Retirar propaganda
-
-### # Tela de Jogo
-
-Tela principal que conterá toda a jogabilidade e mecânica do aplicativo.
-
-- Botão de pause
-- Melhor pontuação pessoal
-- Pontuação atual
-- Número de moedas atuais
-
-
-
+Créditos:
 [ballz-ketchapp]: https://i.ytimg.com/vi/QrQ4Wj8KWkg/maxresdefault.jpg
