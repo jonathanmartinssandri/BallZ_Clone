@@ -20,5 +20,9 @@ Diferentemente do que acontece em 'Breakout' o contato com as bolas não é cond
 
 Um dos únicos itens que podem ser adquiridos durante o jogo, são bolas adicionais. Esse é um item cumulativo extremamente importante, pois conforme o valor das caixas aumenta é necessário um maior "poder de fogo" para destruí-las (mais colisões).
 
-Créditos:
+
+![alt-text][ballz-clone-demo]
+
+
 [ballz-ketchapp]: https://i.ytimg.com/vi/QrQ4Wj8KWkg/maxresdefault.jpg
+[ballz-clone-demo]: https://github.com/lhcopetti/BallZ_Clone/blob/develop/Demo.gif
